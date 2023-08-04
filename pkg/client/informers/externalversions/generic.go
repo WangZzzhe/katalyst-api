@@ -66,6 +66,8 @@ func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Config().V1alpha1().CustomNodeConfigs().Informer()}, nil
 	case configv1alpha1.SchemeGroupVersion.WithResource("katalystcustomconfigs"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Config().V1alpha1().KatalystCustomConfigs().Informer()}, nil
+	case configv1alpha1.SchemeGroupVersion.WithResource("nodeovercommitconfigs"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Config().V1alpha1().NodeOvercommitConfigs().Informer()}, nil
 
 		// Group=node.katalyst.kubewharf.io, Version=v1alpha1
 	case nodev1alpha1.SchemeGroupVersion.WithResource("customnoderesources"):

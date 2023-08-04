@@ -21,3 +21,5 @@ package v1alpha1
 type CustomNodeConfigExpansion interface{}
 
 type KatalystCustomConfigExpansion interface{}
+
+type NodeOvercommitConfigExpansion interface{}

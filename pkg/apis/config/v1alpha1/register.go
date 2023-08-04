@@ -60,6 +60,9 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 		// agent custom config crd
 		&AdminQoSConfiguration{},
 		&AdminQoSConfigurationList{},
+
+		&NodeOvercommitConfig{},
+		&NodeOvercommitConfigList{},
 	)
 
 	metav1.AddToGroupVersion(scheme, SchemeGroupVersion)

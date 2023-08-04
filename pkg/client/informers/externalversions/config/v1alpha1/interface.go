@@ -28,6 +28,8 @@ type Interface interface {
 	CustomNodeConfigs() CustomNodeConfigInformer
 	// KatalystCustomConfigs returns a KatalystCustomConfigInformer.
 	KatalystCustomConfigs() KatalystCustomConfigInformer
+	// NodeOvercommitConfigs returns a NodeOvercommitConfigInformer.
+	NodeOvercommitConfigs() NodeOvercommitConfigInformer
 }
 
 type version struct {
@@ -49,4 +51,9 @@ func (v *version) CustomNodeConfigs() CustomNodeConfigInformer {
 // KatalystCustomConfigs returns a KatalystCustomConfigInformer.
 func (v *version) KatalystCustomConfigs() KatalystCustomConfigInformer {
 	return &katalystCustomConfigInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+}
+
+// NodeOvercommitConfigs returns a NodeOvercommitConfigInformer.
+func (v *version) NodeOvercommitConfigs() NodeOvercommitConfigInformer {
+	return &nodeOvercommitConfigInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }

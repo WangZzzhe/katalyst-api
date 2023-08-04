@@ -36,6 +36,10 @@ func (c *FakeConfigV1alpha1) KatalystCustomConfigs(namespace string) v1alpha1.Ka
 	return &FakeKatalystCustomConfigs{c, namespace}
 }
 
+func (c *FakeConfigV1alpha1) NodeOvercommitConfigs(namespace string) v1alpha1.NodeOvercommitConfigInterface {
+	return &FakeNodeOvercommitConfigs{c, namespace}
+}
+
 // RESTClient returns a RESTClient that is used to communicate
 // with API server by this client implementation.
 func (c *FakeConfigV1alpha1) RESTClient() rest.Interface {

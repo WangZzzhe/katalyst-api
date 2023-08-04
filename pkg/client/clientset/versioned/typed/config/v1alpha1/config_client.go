@@ -30,6 +30,7 @@ type ConfigV1alpha1Interface interface {
 	RESTClient() rest.Interface
 	CustomNodeConfigsGetter
 	KatalystCustomConfigsGetter
+	NodeOvercommitConfigsGetter
 }
 
 // ConfigV1alpha1Client is used to interact with features provided by the config.katalyst.kubewharf.io group.
@@ -43,6 +44,10 @@ func (c *ConfigV1alpha1Client) CustomNodeConfigs() CustomNodeConfigInterface {
 
 func (c *ConfigV1alpha1Client) KatalystCustomConfigs(namespace string) KatalystCustomConfigInterface {
 	return newKatalystCustomConfigs(c, namespace)
+}
+
+func (c *ConfigV1alpha1Client) NodeOvercommitConfigs(namespace string) NodeOvercommitConfigInterface {
+	return newNodeOvercommitConfigs(c, namespace)
 }
 
 // NewForConfig creates a new ConfigV1alpha1Client for the given config.
