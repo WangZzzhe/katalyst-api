@@ -33,7 +33,7 @@ import (
 // NodeOvercommitConfigsGetter has a method to return a NodeOvercommitConfigInterface.
 // A group's client should implement this interface.
 type NodeOvercommitConfigsGetter interface {
-	NodeOvercommitConfigs(namespace string) NodeOvercommitConfigInterface
+	NodeOvercommitConfigs() NodeOvercommitConfigInterface
 }
 
 // NodeOvercommitConfigInterface has methods to work with NodeOvercommitConfig resources.
@@ -53,14 +53,12 @@ type NodeOvercommitConfigInterface interface {
 // nodeOvercommitConfigs implements NodeOvercommitConfigInterface
 type nodeOvercommitConfigs struct {
 	client rest.Interface
-	ns     string
 }
 
 // newNodeOvercommitConfigs returns a NodeOvercommitConfigs
-func newNodeOvercommitConfigs(c *ConfigV1alpha1Client, namespace string) *nodeOvercommitConfigs {
+func newNodeOvercommitConfigs(c *ConfigV1alpha1Client) *nodeOvercommitConfigs {
 	return &nodeOvercommitConfigs{
 		client: c.RESTClient(),
-		ns:     namespace,
 	}
 }
 
@@ -68,7 +66,6 @@ func newNodeOvercommitConfigs(c *ConfigV1alpha1Client, namespace string) *nodeOv
 func (c *nodeOvercommitConfigs) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.NodeOvercommitConfig, err error) {
 	result = &v1alpha1.NodeOvercommitConfig{}
 	err = c.client.Get().
-		Namespace(c.ns).
 		Resource("nodeovercommitconfigs").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
@@ -85,7 +82,6 @@ func (c *nodeOvercommitConfigs) List(ctx context.Context, opts v1.ListOptions) (
 	}
 	result = &v1alpha1.NodeOvercommitConfigList{}
 	err = c.client.Get().
-		Namespace(c.ns).
 		Resource("nodeovercommitconfigs").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
@@ -102,7 +98,6 @@ func (c *nodeOvercommitConfigs) Watch(ctx context.Context, opts v1.ListOptions) 
 	}
 	opts.Watch = true
 	return c.client.Get().
-		Namespace(c.ns).
 		Resource("nodeovercommitconfigs").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
@@ -113,7 +108,6 @@ func (c *nodeOvercommitConfigs) Watch(ctx context.Context, opts v1.ListOptions) 
 func (c *nodeOvercommitConfigs) Create(ctx context.Context, nodeOvercommitConfig *v1alpha1.NodeOvercommitConfig, opts v1.CreateOptions) (result *v1alpha1.NodeOvercommitConfig, err error) {
 	result = &v1alpha1.NodeOvercommitConfig{}
 	err = c.client.Post().
-		Namespace(c.ns).
 		Resource("nodeovercommitconfigs").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(nodeOvercommitConfig).
@@ -126,7 +120,6 @@ func (c *nodeOvercommitConfigs) Create(ctx context.Context, nodeOvercommitConfig
 func (c *nodeOvercommitConfigs) Update(ctx context.Context, nodeOvercommitConfig *v1alpha1.NodeOvercommitConfig, opts v1.UpdateOptions) (result *v1alpha1.NodeOvercommitConfig, err error) {
 	result = &v1alpha1.NodeOvercommitConfig{}
 	err = c.client.Put().
-		Namespace(c.ns).
 		Resource("nodeovercommitconfigs").
 		Name(nodeOvercommitConfig.Name).
 		VersionedParams(&opts, scheme.ParameterCodec).
@@ -141,7 +134,6 @@ func (c *nodeOvercommitConfigs) Update(ctx context.Context, nodeOvercommitConfig
 func (c *nodeOvercommitConfigs) UpdateStatus(ctx context.Context, nodeOvercommitConfig *v1alpha1.NodeOvercommitConfig, opts v1.UpdateOptions) (result *v1alpha1.NodeOvercommitConfig, err error) {
 	result = &v1alpha1.NodeOvercommitConfig{}
 	err = c.client.Put().
-		Namespace(c.ns).
 		Resource("nodeovercommitconfigs").
 		Name(nodeOvercommitConfig.Name).
 		SubResource("status").
@@ -155,7 +147,6 @@ func (c *nodeOvercommitConfigs) UpdateStatus(ctx context.Context, nodeOvercommit
 // Delete takes name of the nodeOvercommitConfig and deletes it. Returns an error if one occurs.
 func (c *nodeOvercommitConfigs) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	return c.client.Delete().
-		Namespace(c.ns).
 		Resource("nodeovercommitconfigs").
 		Name(name).
 		Body(&opts).
@@ -170,7 +161,6 @@ func (c *nodeOvercommitConfigs) DeleteCollection(ctx context.Context, opts v1.De
 		timeout = time.Duration(*listOpts.TimeoutSeconds) * time.Second
 	}
 	return c.client.Delete().
-		Namespace(c.ns).
 		Resource("nodeovercommitconfigs").
 		VersionedParams(&listOpts, scheme.ParameterCodec).
 		Timeout(timeout).
@@ -183,7 +173,6 @@ func (c *nodeOvercommitConfigs) DeleteCollection(ctx context.Context, opts v1.De
 func (c *nodeOvercommitConfigs) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.NodeOvercommitConfig, err error) {
 	result = &v1alpha1.NodeOvercommitConfig{}
 	err = c.client.Patch(pt).
-		Namespace(c.ns).
 		Resource("nodeovercommitconfigs").
 		Name(name).
 		SubResource(subresources...).

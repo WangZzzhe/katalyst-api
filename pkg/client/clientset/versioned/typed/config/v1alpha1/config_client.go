@@ -46,8 +46,8 @@ func (c *ConfigV1alpha1Client) KatalystCustomConfigs(namespace string) KatalystC
 	return newKatalystCustomConfigs(c, namespace)
 }
 
-func (c *ConfigV1alpha1Client) NodeOvercommitConfigs(namespace string) NodeOvercommitConfigInterface {
-	return newNodeOvercommitConfigs(c, namespace)
+func (c *ConfigV1alpha1Client) NodeOvercommitConfigs() NodeOvercommitConfigInterface {
+	return newNodeOvercommitConfigs(c)
 }
 
 // NewForConfig creates a new ConfigV1alpha1Client for the given config.

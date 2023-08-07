@@ -55,5 +55,5 @@ func (v *version) KatalystCustomConfigs() KatalystCustomConfigInformer {
 
 // NodeOvercommitConfigs returns a NodeOvercommitConfigInformer.
 func (v *version) NodeOvercommitConfigs() NodeOvercommitConfigInformer {
-	return &nodeOvercommitConfigInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+	return &nodeOvercommitConfigInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
 }

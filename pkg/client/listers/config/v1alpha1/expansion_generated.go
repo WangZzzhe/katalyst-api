@@ -33,7 +33,3 @@ type KatalystCustomConfigNamespaceListerExpansion interface{}
 // NodeOvercommitConfigListerExpansion allows custom methods to be added to
 // NodeOvercommitConfigLister.
 type NodeOvercommitConfigListerExpansion interface{}
-
-// NodeOvercommitConfigNamespaceListerExpansion allows custom methods to be added to
-// NodeOvercommitConfigNamespaceLister.
-type NodeOvercommitConfigNamespaceListerExpansion interface{}

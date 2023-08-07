@@ -31,8 +31,9 @@ type NodeOvercommitConfigLister interface {
 	// List lists all NodeOvercommitConfigs in the indexer.
 	// Objects returned here must be treated as read-only.
 	List(selector labels.Selector) (ret []*v1alpha1.NodeOvercommitConfig, err error)
-	// NodeOvercommitConfigs returns an object that can list and get NodeOvercommitConfigs.
-	NodeOvercommitConfigs(namespace string) NodeOvercommitConfigNamespaceLister
+	// Get retrieves the NodeOvercommitConfig from the index for a given name.
+	// Objects returned here must be treated as read-only.
+	Get(name string) (*v1alpha1.NodeOvercommitConfig, error)
 	NodeOvercommitConfigListerExpansion
 }
 
@@ -54,41 +55,9 @@ func (s *nodeOvercommitConfigLister) List(selector labels.Selector) (ret []*v1al
 	return ret, err
 }
 
-// NodeOvercommitConfigs returns an object that can list and get NodeOvercommitConfigs.
-func (s *nodeOvercommitConfigLister) NodeOvercommitConfigs(namespace string) NodeOvercommitConfigNamespaceLister {
-	return nodeOvercommitConfigNamespaceLister{indexer: s.indexer, namespace: namespace}
-}
-
-// NodeOvercommitConfigNamespaceLister helps list and get NodeOvercommitConfigs.
-// All objects returned here must be treated as read-only.
-type NodeOvercommitConfigNamespaceLister interface {
-	// List lists all NodeOvercommitConfigs in the indexer for a given namespace.
-	// Objects returned here must be treated as read-only.
-	List(selector labels.Selector) (ret []*v1alpha1.NodeOvercommitConfig, err error)
-	// Get retrieves the NodeOvercommitConfig from the indexer for a given namespace and name.
-	// Objects returned here must be treated as read-only.
-	Get(name string) (*v1alpha1.NodeOvercommitConfig, error)
-	NodeOvercommitConfigNamespaceListerExpansion
-}
-
-// nodeOvercommitConfigNamespaceLister implements the NodeOvercommitConfigNamespaceLister
-// interface.
-type nodeOvercommitConfigNamespaceLister struct {
-	indexer   cache.Indexer
-	namespace string
-}
-
-// List lists all NodeOvercommitConfigs in the indexer for a given namespace.
-func (s nodeOvercommitConfigNamespaceLister) List(selector labels.Selector) (ret []*v1alpha1.NodeOvercommitConfig, err error) {
-	err = cache.ListAllByNamespace(s.indexer, s.namespace, selector, func(m interface{}) {
-		ret = append(ret, m.(*v1alpha1.NodeOvercommitConfig))
-	})
-	return ret, err
-}
-
-// Get retrieves the NodeOvercommitConfig from the indexer for a given namespace and name.
-func (s nodeOvercommitConfigNamespaceLister) Get(name string) (*v1alpha1.NodeOvercommitConfig, error) {
-	obj, exists, err := s.indexer.GetByKey(s.namespace + "/" + name)
+// Get retrieves the NodeOvercommitConfig from the index for a given name.
+func (s *nodeOvercommitConfigLister) Get(name string) (*v1alpha1.NodeOvercommitConfig, error) {
+	obj, exists, err := s.indexer.GetByKey(name)
 	if err != nil {
 		return nil, err
 	}

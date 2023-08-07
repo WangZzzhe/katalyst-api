@@ -42,33 +42,32 @@ type NodeOvercommitConfigInformer interface {
 type nodeOvercommitConfigInformer struct {
 	factory          internalinterfaces.SharedInformerFactory
 	tweakListOptions internalinterfaces.TweakListOptionsFunc
-	namespace        string
 }
 
 // NewNodeOvercommitConfigInformer constructs a new informer for NodeOvercommitConfig type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewNodeOvercommitConfigInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
-	return NewFilteredNodeOvercommitConfigInformer(client, namespace, resyncPeriod, indexers, nil)
+func NewNodeOvercommitConfigInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
+	return NewFilteredNodeOvercommitConfigInformer(client, resyncPeriod, indexers, nil)
 }
 
 // NewFilteredNodeOvercommitConfigInformer constructs a new informer for NodeOvercommitConfig type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewFilteredNodeOvercommitConfigInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
+func NewFilteredNodeOvercommitConfigInformer(client versioned.Interface, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
 	return cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options v1.ListOptions) (runtime.Object, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.ConfigV1alpha1().NodeOvercommitConfigs(namespace).List(context.TODO(), options)
+				return client.ConfigV1alpha1().NodeOvercommitConfigs().List(context.TODO(), options)
 			},
 			WatchFunc: func(options v1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.ConfigV1alpha1().NodeOvercommitConfigs(namespace).Watch(context.TODO(), options)
+				return client.ConfigV1alpha1().NodeOvercommitConfigs().Watch(context.TODO(), options)
 			},
 		},
 		&configv1alpha1.NodeOvercommitConfig{},
@@ -78,7 +77,7 @@ func NewFilteredNodeOvercommitConfigInformer(client versioned.Interface, namespa
 }
 
 func (f *nodeOvercommitConfigInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
-	return NewFilteredNodeOvercommitConfigInformer(client, f.namespace, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
+	return NewFilteredNodeOvercommitConfigInformer(client, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
 }
 
 func (f *nodeOvercommitConfigInformer) Informer() cache.SharedIndexInformer {
