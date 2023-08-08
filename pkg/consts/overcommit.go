@@ -21,3 +21,8 @@ const (
 	NodeAnnotationCPUOvercommitRatioKey    = "katalyst.kubewharf.io/CPU_overcommit_ratio"
 	NodeAnnotationMemoryOvercommitRatioKey = "katalyst.kubewharf.io/memory_overcommit_ratio"
 )
+
+const (
+	DefaultNodeCPUOvercommitRatio    = "1"
+	DefaultNodeMemoryOvercommitRatio = "1"
+)
