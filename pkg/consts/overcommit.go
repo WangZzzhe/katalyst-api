@@ -20,6 +20,8 @@ package consts
 const (
 	NodeAnnotationCPUOvercommitRatioKey    = "katalyst.kubewharf.io/CPU_overcommit_ratio"
 	NodeAnnotationMemoryOvercommitRatioKey = "katalyst.kubewharf.io/memory_overcommit_ratio"
+
+	NodeOvercommitSelectorKey = "config.katalyst.kubewharf.io/overcommit_node_pool"
 )
 
 const (
