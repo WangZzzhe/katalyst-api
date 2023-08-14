@@ -21,6 +21,11 @@ const (
 	NodeAnnotationCPUOvercommitRatioKey    = "katalyst.kubewharf.io/CPU_overcommit_ratio"
 	NodeAnnotationMemoryOvercommitRatioKey = "katalyst.kubewharf.io/memory_overcommit_ratio"
 
+	NodeAnnotationNativeCapacityCPUKey       = "katalyst.kubewharf.io/native_capacity_CPU"
+	NodeAnnotationNativeCapacityMemoryKey    = "katalyst.kubewharf.io/native_capacity_memory"
+	NodeAnnotationNativeAllocatableCPUKey    = "katalyst.kubewharf.io/native_allocatable_CPU"
+	NodeAnnotationNativeAllocatableMemoryKey = "katalyst.kubewharf.io/native_allocatable_memory"
+
 	NodeOvercommitSelectorKey = "config.katalyst.kubewharf.io/overcommit_node_pool"
 )
 

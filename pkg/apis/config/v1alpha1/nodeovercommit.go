@@ -59,7 +59,7 @@ type NodeOvercommitConfigStatus struct {
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 // +kubebuilder:object:root=true
 // +kubebuilder:subresource:status
-// +kubebuilder:resource:shortName=noc
+// +kubebuilder:resource:scope=Cluster,shortName=noc
 // +kubebuilder:printcolumn:name="TYPE",type=string,JSONPath=".spec.configType"
 // +kubebuilder:printcolumn:name="OVERCOMMITRATIO",type=string,JSONPath=".spec.resourceOvercommitRatioConfig"
 

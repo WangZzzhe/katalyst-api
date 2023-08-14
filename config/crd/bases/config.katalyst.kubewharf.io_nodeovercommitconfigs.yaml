@@ -15,7 +15,7 @@ spec:
     shortNames:
     - noc
     singular: nodeovercommitconfig
-  scope: Namespaced
+  scope: Cluster
   versions:
   - additionalPrinterColumns:
     - jsonPath: .spec.configType
