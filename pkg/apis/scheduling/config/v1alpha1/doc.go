@@ -17,4 +17,4 @@
 // +k8s:defaulter-gen=TypeMeta
 // +groupName=kubescheduler.config.k8s.io
 
-package v1beta3
+package v1alpha1

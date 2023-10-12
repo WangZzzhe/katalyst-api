@@ -19,8 +19,6 @@ limitations under the License.
 package fake
 
 import (
-	"context"
-
 	v1alpha1 "github.com/kubewharf/katalyst-api/pkg/apis/overcommit/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
@@ -40,7 +38,7 @@ var nodeovercommitconfigsResource = schema.GroupVersionResource{Group: "overcomm
 var nodeovercommitconfigsKind = schema.GroupVersionKind{Group: "overcommit.katalyst.kubewharf.io", Version: "v1alpha1", Kind: "NodeOvercommitConfig"}
 
 // Get takes name of the nodeOvercommitConfig, and returns the corresponding nodeOvercommitConfig object, and an error if there is any.
-func (c *FakeNodeOvercommitConfigs) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.NodeOvercommitConfig, err error) {
+func (c *FakeNodeOvercommitConfigs) Get(name string, options v1.GetOptions) (result *v1alpha1.NodeOvercommitConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootGetAction(nodeovercommitconfigsResource, name), &v1alpha1.NodeOvercommitConfig{})
 	if obj == nil {
@@ -50,7 +48,7 @@ func (c *FakeNodeOvercommitConfigs) Get(ctx context.Context, name string, option
 }
 
 // List takes label and field selectors, and returns the list of NodeOvercommitConfigs that match those selectors.
-func (c *FakeNodeOvercommitConfigs) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.NodeOvercommitConfigList, err error) {
+func (c *FakeNodeOvercommitConfigs) List(opts v1.ListOptions) (result *v1alpha1.NodeOvercommitConfigList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootListAction(nodeovercommitconfigsResource, nodeovercommitconfigsKind, opts), &v1alpha1.NodeOvercommitConfigList{})
 	if obj == nil {
@@ -71,13 +69,13 @@ func (c *FakeNodeOvercommitConfigs) List(ctx context.Context, opts v1.ListOption
 }
 
 // Watch returns a watch.Interface that watches the requested nodeOvercommitConfigs.
-func (c *FakeNodeOvercommitConfigs) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeNodeOvercommitConfigs) Watch(opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewRootWatchAction(nodeovercommitconfigsResource, opts))
 }
 
 // Create takes the representation of a nodeOvercommitConfig and creates it.  Returns the server's representation of the nodeOvercommitConfig, and an error, if there is any.
-func (c *FakeNodeOvercommitConfigs) Create(ctx context.Context, nodeOvercommitConfig *v1alpha1.NodeOvercommitConfig, opts v1.CreateOptions) (result *v1alpha1.NodeOvercommitConfig, err error) {
+func (c *FakeNodeOvercommitConfigs) Create(nodeOvercommitConfig *v1alpha1.NodeOvercommitConfig) (result *v1alpha1.NodeOvercommitConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootCreateAction(nodeovercommitconfigsResource, nodeOvercommitConfig), &v1alpha1.NodeOvercommitConfig{})
 	if obj == nil {
@@ -87,7 +85,7 @@ func (c *FakeNodeOvercommitConfigs) Create(ctx context.Context, nodeOvercommitCo
 }
 
 // Update takes the representation of a nodeOvercommitConfig and updates it. Returns the server's representation of the nodeOvercommitConfig, and an error, if there is any.
-func (c *FakeNodeOvercommitConfigs) Update(ctx context.Context, nodeOvercommitConfig *v1alpha1.NodeOvercommitConfig, opts v1.UpdateOptions) (result *v1alpha1.NodeOvercommitConfig, err error) {
+func (c *FakeNodeOvercommitConfigs) Update(nodeOvercommitConfig *v1alpha1.NodeOvercommitConfig) (result *v1alpha1.NodeOvercommitConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootUpdateAction(nodeovercommitconfigsResource, nodeOvercommitConfig), &v1alpha1.NodeOvercommitConfig{})
 	if obj == nil {
@@ -98,7 +96,7 @@ func (c *FakeNodeOvercommitConfigs) Update(ctx context.Context, nodeOvercommitCo
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakeNodeOvercommitConfigs) UpdateStatus(ctx context.Context, nodeOvercommitConfig *v1alpha1.NodeOvercommitConfig, opts v1.UpdateOptions) (*v1alpha1.NodeOvercommitConfig, error) {
+func (c *FakeNodeOvercommitConfigs) UpdateStatus(nodeOvercommitConfig *v1alpha1.NodeOvercommitConfig) (*v1alpha1.NodeOvercommitConfig, error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootUpdateSubresourceAction(nodeovercommitconfigsResource, "status", nodeOvercommitConfig), &v1alpha1.NodeOvercommitConfig{})
 	if obj == nil {
@@ -108,22 +106,22 @@ func (c *FakeNodeOvercommitConfigs) UpdateStatus(ctx context.Context, nodeOverco
 }
 
 // Delete takes name of the nodeOvercommitConfig and deletes it. Returns an error if one occurs.
-func (c *FakeNodeOvercommitConfigs) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
+func (c *FakeNodeOvercommitConfigs) Delete(name string, options *v1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewRootDeleteActionWithOptions(nodeovercommitconfigsResource, name, opts), &v1alpha1.NodeOvercommitConfig{})
+		Invokes(testing.NewRootDeleteAction(nodeovercommitconfigsResource, name), &v1alpha1.NodeOvercommitConfig{})
 	return err
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeNodeOvercommitConfigs) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
-	action := testing.NewRootDeleteCollectionAction(nodeovercommitconfigsResource, listOpts)
+func (c *FakeNodeOvercommitConfigs) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
+	action := testing.NewRootDeleteCollectionAction(nodeovercommitconfigsResource, listOptions)
 
 	_, err := c.Fake.Invokes(action, &v1alpha1.NodeOvercommitConfigList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched nodeOvercommitConfig.
-func (c *FakeNodeOvercommitConfigs) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.NodeOvercommitConfig, err error) {
+func (c *FakeNodeOvercommitConfigs) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.NodeOvercommitConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootPatchSubresourceAction(nodeovercommitconfigsResource, name, pt, data, subresources...), &v1alpha1.NodeOvercommitConfig{})
 	if obj == nil {

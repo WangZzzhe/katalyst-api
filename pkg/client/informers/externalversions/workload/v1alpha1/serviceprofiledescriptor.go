@@ -19,7 +19,6 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"context"
 	time "time"
 
 	workloadv1alpha1 "github.com/kubewharf/katalyst-api/pkg/apis/workload/v1alpha1"
@@ -62,13 +61,13 @@ func NewFilteredServiceProfileDescriptorInformer(client versioned.Interface, nam
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.WorkloadV1alpha1().ServiceProfileDescriptors(namespace).List(context.TODO(), options)
+				return client.WorkloadV1alpha1().ServiceProfileDescriptors(namespace).List(options)
 			},
 			WatchFunc: func(options v1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.WorkloadV1alpha1().ServiceProfileDescriptors(namespace).Watch(context.TODO(), options)
+				return client.WorkloadV1alpha1().ServiceProfileDescriptors(namespace).Watch(options)
 			},
 		},
 		&workloadv1alpha1.ServiceProfileDescriptor{},

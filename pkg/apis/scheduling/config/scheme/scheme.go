@@ -21,7 +21,7 @@ import (
 	kubeschedulerscheme "k8s.io/kubernetes/pkg/scheduler/apis/config/scheme"
 
 	"github.com/kubewharf/katalyst-api/pkg/apis/scheduling/config"
-	configv1beta3 "github.com/kubewharf/katalyst-api/pkg/apis/scheduling/config/v1beta3"
+	configv1alpha1 "github.com/kubewharf/katalyst-api/pkg/apis/scheduling/config/v1alpha1"
 )
 
 var (
@@ -39,5 +39,5 @@ func init() {
 // AddToScheme builds the kubescheduler scheme using all known versions of the kubescheduler api.
 func AddToScheme(scheme *runtime.Scheme) {
 	utilruntime.Must(config.AddToScheme(scheme))
-	utilruntime.Must(configv1beta3.AddToScheme(scheme))
+	utilruntime.Must(configv1alpha1.AddToScheme(scheme))
 }

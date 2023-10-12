@@ -12,22 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package v1beta3
+package v1alpha1
 
 import (
 	"fmt"
-	v1 "k8s.io/api/core/v1"
-	"k8s.io/kube-scheduler/config/v1beta3"
+	"github.com/kubewharf/katalyst-api/pkg/apis/scheduling/config"
+	corev1 "k8s.io/api/core/v1"
+	"k8s.io/kube-scheduler/config/v1"
 
 	"github.com/kubewharf/katalyst-api/pkg/consts"
 )
 
-var defaultResourceSpec = []v1beta3.ResourceSpec{
-	{Name: string(v1.ResourceCPU), Weight: 1},
-	{Name: string(v1.ResourceMemory), Weight: 1},
+var defaultResourceSpec = []v1.ResourceSpec{
+	{Name: string(corev1.ResourceCPU), Weight: 1},
+	{Name: string(corev1.ResourceMemory), Weight: 1},
 }
 
-var defaultReclaimedResourceSpec = []v1beta3.ResourceSpec{
+var defaultReclaimedResourceSpec = []v1.ResourceSpec{
 	{Name: fmt.Sprintf("%s", consts.ReclaimedResourceMilliCPU), Weight: 1},
 	{Name: fmt.Sprintf("%s", consts.ReclaimedResourceMemory), Weight: 1},
 }
@@ -36,7 +37,7 @@ var defaultReclaimedResourceSpec = []v1beta3.ResourceSpec{
 func SetDefaults_QoSAwareNodeResourcesFitArgs(obj *QoSAwareNodeResourcesFitArgs) {
 	if obj.ScoringStrategy == nil {
 		obj.ScoringStrategy = &ScoringStrategy{
-			Type:               v1beta3.LeastAllocated,
+			Type:               config.LeastAllocated,
 			Resources:          defaultResourceSpec,
 			ReclaimedResources: defaultReclaimedResourceSpec,
 		}

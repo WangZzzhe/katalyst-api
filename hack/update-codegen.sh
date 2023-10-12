@@ -35,5 +35,5 @@ SCRIPT_ROOT=$(dirname "${BASH_SOURCE[0]}")/..
   github.com/kubewharf/katalyst-api/pkg/apis/scheduling/generated \
   github.com/kubewharf/katalyst-api/pkg/apis/scheduling \
   github.com/kubewharf/katalyst-api/pkg/apis/scheduling \
-  "config:v1beta3" \
+  "config:v1alpha1" \
   --go-header-file "${SCRIPT_ROOT}"/hack/boilerplate.go.txt

@@ -19,7 +19,6 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"context"
 	"time"
 
 	v1alpha1 "github.com/kubewharf/katalyst-api/pkg/apis/autoscaling/v1alpha1"
@@ -38,15 +37,15 @@ type KatalystVerticalPodAutoscalersGetter interface {
 
 // KatalystVerticalPodAutoscalerInterface has methods to work with KatalystVerticalPodAutoscaler resources.
 type KatalystVerticalPodAutoscalerInterface interface {
-	Create(ctx context.Context, katalystVerticalPodAutoscaler *v1alpha1.KatalystVerticalPodAutoscaler, opts v1.CreateOptions) (*v1alpha1.KatalystVerticalPodAutoscaler, error)
-	Update(ctx context.Context, katalystVerticalPodAutoscaler *v1alpha1.KatalystVerticalPodAutoscaler, opts v1.UpdateOptions) (*v1alpha1.KatalystVerticalPodAutoscaler, error)
-	UpdateStatus(ctx context.Context, katalystVerticalPodAutoscaler *v1alpha1.KatalystVerticalPodAutoscaler, opts v1.UpdateOptions) (*v1alpha1.KatalystVerticalPodAutoscaler, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1alpha1.KatalystVerticalPodAutoscaler, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1alpha1.KatalystVerticalPodAutoscalerList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.KatalystVerticalPodAutoscaler, err error)
+	Create(*v1alpha1.KatalystVerticalPodAutoscaler) (*v1alpha1.KatalystVerticalPodAutoscaler, error)
+	Update(*v1alpha1.KatalystVerticalPodAutoscaler) (*v1alpha1.KatalystVerticalPodAutoscaler, error)
+	UpdateStatus(*v1alpha1.KatalystVerticalPodAutoscaler) (*v1alpha1.KatalystVerticalPodAutoscaler, error)
+	Delete(name string, options *v1.DeleteOptions) error
+	DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error
+	Get(name string, options v1.GetOptions) (*v1alpha1.KatalystVerticalPodAutoscaler, error)
+	List(opts v1.ListOptions) (*v1alpha1.KatalystVerticalPodAutoscalerList, error)
+	Watch(opts v1.ListOptions) (watch.Interface, error)
+	Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.KatalystVerticalPodAutoscaler, err error)
 	KatalystVerticalPodAutoscalerExpansion
 }
 
@@ -65,20 +64,20 @@ func newKatalystVerticalPodAutoscalers(c *AutoscalingV1alpha1Client, namespace s
 }
 
 // Get takes name of the katalystVerticalPodAutoscaler, and returns the corresponding katalystVerticalPodAutoscaler object, and an error if there is any.
-func (c *katalystVerticalPodAutoscalers) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.KatalystVerticalPodAutoscaler, err error) {
+func (c *katalystVerticalPodAutoscalers) Get(name string, options v1.GetOptions) (result *v1alpha1.KatalystVerticalPodAutoscaler, err error) {
 	result = &v1alpha1.KatalystVerticalPodAutoscaler{}
 	err = c.client.Get().
 		Namespace(c.ns).
 		Resource("katalystverticalpodautoscalers").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // List takes label and field selectors, and returns the list of KatalystVerticalPodAutoscalers that match those selectors.
-func (c *katalystVerticalPodAutoscalers) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.KatalystVerticalPodAutoscalerList, err error) {
+func (c *katalystVerticalPodAutoscalers) List(opts v1.ListOptions) (result *v1alpha1.KatalystVerticalPodAutoscalerList, err error) {
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -89,13 +88,13 @@ func (c *katalystVerticalPodAutoscalers) List(ctx context.Context, opts v1.ListO
 		Resource("katalystverticalpodautoscalers").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // Watch returns a watch.Interface that watches the requested katalystVerticalPodAutoscalers.
-func (c *katalystVerticalPodAutoscalers) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
+func (c *katalystVerticalPodAutoscalers) Watch(opts v1.ListOptions) (watch.Interface, error) {
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -106,90 +105,87 @@ func (c *katalystVerticalPodAutoscalers) Watch(ctx context.Context, opts v1.List
 		Resource("katalystverticalpodautoscalers").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Watch(ctx)
+		Watch()
 }
 
 // Create takes the representation of a katalystVerticalPodAutoscaler and creates it.  Returns the server's representation of the katalystVerticalPodAutoscaler, and an error, if there is any.
-func (c *katalystVerticalPodAutoscalers) Create(ctx context.Context, katalystVerticalPodAutoscaler *v1alpha1.KatalystVerticalPodAutoscaler, opts v1.CreateOptions) (result *v1alpha1.KatalystVerticalPodAutoscaler, err error) {
+func (c *katalystVerticalPodAutoscalers) Create(katalystVerticalPodAutoscaler *v1alpha1.KatalystVerticalPodAutoscaler) (result *v1alpha1.KatalystVerticalPodAutoscaler, err error) {
 	result = &v1alpha1.KatalystVerticalPodAutoscaler{}
 	err = c.client.Post().
 		Namespace(c.ns).
 		Resource("katalystverticalpodautoscalers").
-		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(katalystVerticalPodAutoscaler).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // Update takes the representation of a katalystVerticalPodAutoscaler and updates it. Returns the server's representation of the katalystVerticalPodAutoscaler, and an error, if there is any.
-func (c *katalystVerticalPodAutoscalers) Update(ctx context.Context, katalystVerticalPodAutoscaler *v1alpha1.KatalystVerticalPodAutoscaler, opts v1.UpdateOptions) (result *v1alpha1.KatalystVerticalPodAutoscaler, err error) {
+func (c *katalystVerticalPodAutoscalers) Update(katalystVerticalPodAutoscaler *v1alpha1.KatalystVerticalPodAutoscaler) (result *v1alpha1.KatalystVerticalPodAutoscaler, err error) {
 	result = &v1alpha1.KatalystVerticalPodAutoscaler{}
 	err = c.client.Put().
 		Namespace(c.ns).
 		Resource("katalystverticalpodautoscalers").
 		Name(katalystVerticalPodAutoscaler.Name).
-		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(katalystVerticalPodAutoscaler).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *katalystVerticalPodAutoscalers) UpdateStatus(ctx context.Context, katalystVerticalPodAutoscaler *v1alpha1.KatalystVerticalPodAutoscaler, opts v1.UpdateOptions) (result *v1alpha1.KatalystVerticalPodAutoscaler, err error) {
+
+func (c *katalystVerticalPodAutoscalers) UpdateStatus(katalystVerticalPodAutoscaler *v1alpha1.KatalystVerticalPodAutoscaler) (result *v1alpha1.KatalystVerticalPodAutoscaler, err error) {
 	result = &v1alpha1.KatalystVerticalPodAutoscaler{}
 	err = c.client.Put().
 		Namespace(c.ns).
 		Resource("katalystverticalpodautoscalers").
 		Name(katalystVerticalPodAutoscaler.Name).
 		SubResource("status").
-		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(katalystVerticalPodAutoscaler).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // Delete takes name of the katalystVerticalPodAutoscaler and deletes it. Returns an error if one occurs.
-func (c *katalystVerticalPodAutoscalers) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
+func (c *katalystVerticalPodAutoscalers) Delete(name string, options *v1.DeleteOptions) error {
 	return c.client.Delete().
 		Namespace(c.ns).
 		Resource("katalystverticalpodautoscalers").
 		Name(name).
-		Body(&opts).
-		Do(ctx).
+		Body(options).
+		Do().
 		Error()
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *katalystVerticalPodAutoscalers) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+func (c *katalystVerticalPodAutoscalers) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
 	var timeout time.Duration
-	if listOpts.TimeoutSeconds != nil {
-		timeout = time.Duration(*listOpts.TimeoutSeconds) * time.Second
+	if listOptions.TimeoutSeconds != nil {
+		timeout = time.Duration(*listOptions.TimeoutSeconds) * time.Second
 	}
 	return c.client.Delete().
 		Namespace(c.ns).
 		Resource("katalystverticalpodautoscalers").
-		VersionedParams(&listOpts, scheme.ParameterCodec).
+		VersionedParams(&listOptions, scheme.ParameterCodec).
 		Timeout(timeout).
-		Body(&opts).
-		Do(ctx).
+		Body(options).
+		Do().
 		Error()
 }
 
 // Patch applies the patch and returns the patched katalystVerticalPodAutoscaler.
-func (c *katalystVerticalPodAutoscalers) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.KatalystVerticalPodAutoscaler, err error) {
+func (c *katalystVerticalPodAutoscalers) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.KatalystVerticalPodAutoscaler, err error) {
 	result = &v1alpha1.KatalystVerticalPodAutoscaler{}
 	err = c.client.Patch(pt).
 		Namespace(c.ns).
 		Resource("katalystverticalpodautoscalers").
-		Name(name).
 		SubResource(subresources...).
-		VersionedParams(&opts, scheme.ParameterCodec).
+		Name(name).
 		Body(data).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }

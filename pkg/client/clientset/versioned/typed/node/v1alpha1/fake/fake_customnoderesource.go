@@ -19,8 +19,6 @@ limitations under the License.
 package fake
 
 import (
-	"context"
-
 	v1alpha1 "github.com/kubewharf/katalyst-api/pkg/apis/node/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
@@ -40,7 +38,7 @@ var customnoderesourcesResource = schema.GroupVersionResource{Group: "node.katal
 var customnoderesourcesKind = schema.GroupVersionKind{Group: "node.katalyst.kubewharf.io", Version: "v1alpha1", Kind: "CustomNodeResource"}
 
 // Get takes name of the customNodeResource, and returns the corresponding customNodeResource object, and an error if there is any.
-func (c *FakeCustomNodeResources) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.CustomNodeResource, err error) {
+func (c *FakeCustomNodeResources) Get(name string, options v1.GetOptions) (result *v1alpha1.CustomNodeResource, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootGetAction(customnoderesourcesResource, name), &v1alpha1.CustomNodeResource{})
 	if obj == nil {
@@ -50,7 +48,7 @@ func (c *FakeCustomNodeResources) Get(ctx context.Context, name string, options 
 }
 
 // List takes label and field selectors, and returns the list of CustomNodeResources that match those selectors.
-func (c *FakeCustomNodeResources) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.CustomNodeResourceList, err error) {
+func (c *FakeCustomNodeResources) List(opts v1.ListOptions) (result *v1alpha1.CustomNodeResourceList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootListAction(customnoderesourcesResource, customnoderesourcesKind, opts), &v1alpha1.CustomNodeResourceList{})
 	if obj == nil {
@@ -71,13 +69,13 @@ func (c *FakeCustomNodeResources) List(ctx context.Context, opts v1.ListOptions)
 }
 
 // Watch returns a watch.Interface that watches the requested customNodeResources.
-func (c *FakeCustomNodeResources) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeCustomNodeResources) Watch(opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewRootWatchAction(customnoderesourcesResource, opts))
 }
 
 // Create takes the representation of a customNodeResource and creates it.  Returns the server's representation of the customNodeResource, and an error, if there is any.
-func (c *FakeCustomNodeResources) Create(ctx context.Context, customNodeResource *v1alpha1.CustomNodeResource, opts v1.CreateOptions) (result *v1alpha1.CustomNodeResource, err error) {
+func (c *FakeCustomNodeResources) Create(customNodeResource *v1alpha1.CustomNodeResource) (result *v1alpha1.CustomNodeResource, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootCreateAction(customnoderesourcesResource, customNodeResource), &v1alpha1.CustomNodeResource{})
 	if obj == nil {
@@ -87,7 +85,7 @@ func (c *FakeCustomNodeResources) Create(ctx context.Context, customNodeResource
 }
 
 // Update takes the representation of a customNodeResource and updates it. Returns the server's representation of the customNodeResource, and an error, if there is any.
-func (c *FakeCustomNodeResources) Update(ctx context.Context, customNodeResource *v1alpha1.CustomNodeResource, opts v1.UpdateOptions) (result *v1alpha1.CustomNodeResource, err error) {
+func (c *FakeCustomNodeResources) Update(customNodeResource *v1alpha1.CustomNodeResource) (result *v1alpha1.CustomNodeResource, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootUpdateAction(customnoderesourcesResource, customNodeResource), &v1alpha1.CustomNodeResource{})
 	if obj == nil {
@@ -98,7 +96,7 @@ func (c *FakeCustomNodeResources) Update(ctx context.Context, customNodeResource
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakeCustomNodeResources) UpdateStatus(ctx context.Context, customNodeResource *v1alpha1.CustomNodeResource, opts v1.UpdateOptions) (*v1alpha1.CustomNodeResource, error) {
+func (c *FakeCustomNodeResources) UpdateStatus(customNodeResource *v1alpha1.CustomNodeResource) (*v1alpha1.CustomNodeResource, error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootUpdateSubresourceAction(customnoderesourcesResource, "status", customNodeResource), &v1alpha1.CustomNodeResource{})
 	if obj == nil {
@@ -108,22 +106,22 @@ func (c *FakeCustomNodeResources) UpdateStatus(ctx context.Context, customNodeRe
 }
 
 // Delete takes name of the customNodeResource and deletes it. Returns an error if one occurs.
-func (c *FakeCustomNodeResources) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
+func (c *FakeCustomNodeResources) Delete(name string, options *v1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewRootDeleteActionWithOptions(customnoderesourcesResource, name, opts), &v1alpha1.CustomNodeResource{})
+		Invokes(testing.NewRootDeleteAction(customnoderesourcesResource, name), &v1alpha1.CustomNodeResource{})
 	return err
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeCustomNodeResources) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
-	action := testing.NewRootDeleteCollectionAction(customnoderesourcesResource, listOpts)
+func (c *FakeCustomNodeResources) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
+	action := testing.NewRootDeleteCollectionAction(customnoderesourcesResource, listOptions)
 
 	_, err := c.Fake.Invokes(action, &v1alpha1.CustomNodeResourceList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched customNodeResource.
-func (c *FakeCustomNodeResources) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.CustomNodeResource, err error) {
+func (c *FakeCustomNodeResources) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.CustomNodeResource, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootPatchSubresourceAction(customnoderesourcesResource, name, pt, data, subresources...), &v1alpha1.CustomNodeResource{})
 	if obj == nil {

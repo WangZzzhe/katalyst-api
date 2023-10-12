@@ -19,7 +19,6 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"context"
 	"time"
 
 	v1alpha1 "github.com/kubewharf/katalyst-api/pkg/apis/node/v1alpha1"
@@ -38,15 +37,15 @@ type CustomNodeResourcesGetter interface {
 
 // CustomNodeResourceInterface has methods to work with CustomNodeResource resources.
 type CustomNodeResourceInterface interface {
-	Create(ctx context.Context, customNodeResource *v1alpha1.CustomNodeResource, opts v1.CreateOptions) (*v1alpha1.CustomNodeResource, error)
-	Update(ctx context.Context, customNodeResource *v1alpha1.CustomNodeResource, opts v1.UpdateOptions) (*v1alpha1.CustomNodeResource, error)
-	UpdateStatus(ctx context.Context, customNodeResource *v1alpha1.CustomNodeResource, opts v1.UpdateOptions) (*v1alpha1.CustomNodeResource, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1alpha1.CustomNodeResource, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1alpha1.CustomNodeResourceList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.CustomNodeResource, err error)
+	Create(*v1alpha1.CustomNodeResource) (*v1alpha1.CustomNodeResource, error)
+	Update(*v1alpha1.CustomNodeResource) (*v1alpha1.CustomNodeResource, error)
+	UpdateStatus(*v1alpha1.CustomNodeResource) (*v1alpha1.CustomNodeResource, error)
+	Delete(name string, options *v1.DeleteOptions) error
+	DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error
+	Get(name string, options v1.GetOptions) (*v1alpha1.CustomNodeResource, error)
+	List(opts v1.ListOptions) (*v1alpha1.CustomNodeResourceList, error)
+	Watch(opts v1.ListOptions) (watch.Interface, error)
+	Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.CustomNodeResource, err error)
 	CustomNodeResourceExpansion
 }
 
@@ -63,19 +62,19 @@ func newCustomNodeResources(c *NodeV1alpha1Client) *customNodeResources {
 }
 
 // Get takes name of the customNodeResource, and returns the corresponding customNodeResource object, and an error if there is any.
-func (c *customNodeResources) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.CustomNodeResource, err error) {
+func (c *customNodeResources) Get(name string, options v1.GetOptions) (result *v1alpha1.CustomNodeResource, err error) {
 	result = &v1alpha1.CustomNodeResource{}
 	err = c.client.Get().
 		Resource("customnoderesources").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // List takes label and field selectors, and returns the list of CustomNodeResources that match those selectors.
-func (c *customNodeResources) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.CustomNodeResourceList, err error) {
+func (c *customNodeResources) List(opts v1.ListOptions) (result *v1alpha1.CustomNodeResourceList, err error) {
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -85,13 +84,13 @@ func (c *customNodeResources) List(ctx context.Context, opts v1.ListOptions) (re
 		Resource("customnoderesources").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // Watch returns a watch.Interface that watches the requested customNodeResources.
-func (c *customNodeResources) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
+func (c *customNodeResources) Watch(opts v1.ListOptions) (watch.Interface, error) {
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -101,84 +100,81 @@ func (c *customNodeResources) Watch(ctx context.Context, opts v1.ListOptions) (w
 		Resource("customnoderesources").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Watch(ctx)
+		Watch()
 }
 
 // Create takes the representation of a customNodeResource and creates it.  Returns the server's representation of the customNodeResource, and an error, if there is any.
-func (c *customNodeResources) Create(ctx context.Context, customNodeResource *v1alpha1.CustomNodeResource, opts v1.CreateOptions) (result *v1alpha1.CustomNodeResource, err error) {
+func (c *customNodeResources) Create(customNodeResource *v1alpha1.CustomNodeResource) (result *v1alpha1.CustomNodeResource, err error) {
 	result = &v1alpha1.CustomNodeResource{}
 	err = c.client.Post().
 		Resource("customnoderesources").
-		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(customNodeResource).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // Update takes the representation of a customNodeResource and updates it. Returns the server's representation of the customNodeResource, and an error, if there is any.
-func (c *customNodeResources) Update(ctx context.Context, customNodeResource *v1alpha1.CustomNodeResource, opts v1.UpdateOptions) (result *v1alpha1.CustomNodeResource, err error) {
+func (c *customNodeResources) Update(customNodeResource *v1alpha1.CustomNodeResource) (result *v1alpha1.CustomNodeResource, err error) {
 	result = &v1alpha1.CustomNodeResource{}
 	err = c.client.Put().
 		Resource("customnoderesources").
 		Name(customNodeResource.Name).
-		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(customNodeResource).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *customNodeResources) UpdateStatus(ctx context.Context, customNodeResource *v1alpha1.CustomNodeResource, opts v1.UpdateOptions) (result *v1alpha1.CustomNodeResource, err error) {
+
+func (c *customNodeResources) UpdateStatus(customNodeResource *v1alpha1.CustomNodeResource) (result *v1alpha1.CustomNodeResource, err error) {
 	result = &v1alpha1.CustomNodeResource{}
 	err = c.client.Put().
 		Resource("customnoderesources").
 		Name(customNodeResource.Name).
 		SubResource("status").
-		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(customNodeResource).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // Delete takes name of the customNodeResource and deletes it. Returns an error if one occurs.
-func (c *customNodeResources) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
+func (c *customNodeResources) Delete(name string, options *v1.DeleteOptions) error {
 	return c.client.Delete().
 		Resource("customnoderesources").
 		Name(name).
-		Body(&opts).
-		Do(ctx).
+		Body(options).
+		Do().
 		Error()
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *customNodeResources) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+func (c *customNodeResources) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
 	var timeout time.Duration
-	if listOpts.TimeoutSeconds != nil {
-		timeout = time.Duration(*listOpts.TimeoutSeconds) * time.Second
+	if listOptions.TimeoutSeconds != nil {
+		timeout = time.Duration(*listOptions.TimeoutSeconds) * time.Second
 	}
 	return c.client.Delete().
 		Resource("customnoderesources").
-		VersionedParams(&listOpts, scheme.ParameterCodec).
+		VersionedParams(&listOptions, scheme.ParameterCodec).
 		Timeout(timeout).
-		Body(&opts).
-		Do(ctx).
+		Body(options).
+		Do().
 		Error()
 }
 
 // Patch applies the patch and returns the patched customNodeResource.
-func (c *customNodeResources) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.CustomNodeResource, err error) {
+func (c *customNodeResources) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.CustomNodeResource, err error) {
 	result = &v1alpha1.CustomNodeResource{}
 	err = c.client.Patch(pt).
 		Resource("customnoderesources").
-		Name(name).
 		SubResource(subresources...).
-		VersionedParams(&opts, scheme.ParameterCodec).
+		Name(name).
 		Body(data).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
