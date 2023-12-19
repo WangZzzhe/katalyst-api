@@ -19,8 +19,6 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"net/http"
-
 	v1alpha1 "github.com/kubewharf/katalyst-api/pkg/apis/tide/v1alpha1"
 	"github.com/kubewharf/katalyst-api/pkg/client/clientset/versioned/scheme"
 	rest "k8s.io/client-go/rest"
@@ -28,41 +26,20 @@ import (
 
 type TideV1alpha1Interface interface {
 	RESTClient() rest.Interface
-	TideNodePoolsGetter
 }
 
-// TideV1alpha1Client is used to interact with features provided by the tide.katalyst.kubewharf.io group.
+// TideV1alpha1Client is used to interact with features provided by the tide group.
 type TideV1alpha1Client struct {
 	restClient rest.Interface
 }
 
-func (c *TideV1alpha1Client) TideNodePools() TideNodePoolInterface {
-	return newTideNodePools(c)
-}
-
 // NewForConfig creates a new TideV1alpha1Client for the given config.
-// NewForConfig is equivalent to NewForConfigAndClient(c, httpClient),
-// where httpClient was generated with rest.HTTPClientFor(c).
 func NewForConfig(c *rest.Config) (*TideV1alpha1Client, error) {
 	config := *c
 	if err := setConfigDefaults(&config); err != nil {
 		return nil, err
 	}
-	httpClient, err := rest.HTTPClientFor(&config)
-	if err != nil {
-		return nil, err
-	}
-	return NewForConfigAndClient(&config, httpClient)
-}
-
-// NewForConfigAndClient creates a new TideV1alpha1Client for the given config and http client.
-// Note the http client provided takes precedence over the configured transport values.
-func NewForConfigAndClient(c *rest.Config, h *http.Client) (*TideV1alpha1Client, error) {
-	config := *c
-	if err := setConfigDefaults(&config); err != nil {
-		return nil, err
-	}
-	client, err := rest.RESTClientForConfigAndClient(&config, h)
+	client, err := rest.RESTClientFor(&config)
 	if err != nil {
 		return nil, err
 	}

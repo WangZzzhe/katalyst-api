@@ -19,17 +19,12 @@ limitations under the License.
 package fake
 
 import (
-	v1alpha1 "github.com/kubewharf/katalyst-api/pkg/client/clientset/versioned/typed/tide/v1alpha1"
 	rest "k8s.io/client-go/rest"
 	testing "k8s.io/client-go/testing"
 )
 
 type FakeTideV1alpha1 struct {
 	*testing.Fake
-}
-
-func (c *FakeTideV1alpha1) TideNodePools() v1alpha1.TideNodePoolInterface {
-	return &FakeTideNodePools{c}
 }
 
 // RESTClient returns a RESTClient that is used to communicate

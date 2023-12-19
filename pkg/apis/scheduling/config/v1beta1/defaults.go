@@ -1,33 +1,19 @@
-// Copyright 2022 The Katalyst Authors.
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-package v1beta3
+package v1beta1
 
 import (
 	"fmt"
-	v1 "k8s.io/api/core/v1"
-	"k8s.io/kube-scheduler/config/v1beta3"
-
+	"github.com/kubewharf/katalyst-api/pkg/apis/scheduling/config"
 	"github.com/kubewharf/katalyst-api/pkg/consts"
+	v1 "k8s.io/api/core/v1"
+	"k8s.io/kube-scheduler/config/v1beta1"
 )
 
-var defaultResourceSpec = []v1beta3.ResourceSpec{
+var defaultResourceSpec = []v1beta1.ResourceSpec{
 	{Name: string(v1.ResourceCPU), Weight: 1},
 	{Name: string(v1.ResourceMemory), Weight: 1},
 }
 
-var defaultReclaimedResourceSpec = []v1beta3.ResourceSpec{
+var defaultReclaimedResourceSpec = []v1beta1.ResourceSpec{
 	{Name: fmt.Sprintf("%s", consts.ReclaimedResourceMilliCPU), Weight: 1},
 	{Name: fmt.Sprintf("%s", consts.ReclaimedResourceMemory), Weight: 1},
 }
@@ -36,7 +22,7 @@ var defaultReclaimedResourceSpec = []v1beta3.ResourceSpec{
 func SetDefaults_QoSAwareNodeResourcesFitArgs(obj *QoSAwareNodeResourcesFitArgs) {
 	if obj.ScoringStrategy == nil {
 		obj.ScoringStrategy = &ScoringStrategy{
-			Type:               v1beta3.LeastAllocated,
+			Type:               config.LeastAllocated,
 			Resources:          defaultResourceSpec,
 			ReclaimedResources: defaultReclaimedResourceSpec,
 		}
