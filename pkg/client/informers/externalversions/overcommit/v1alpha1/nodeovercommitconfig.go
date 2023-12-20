@@ -19,7 +19,6 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"context"
 	time "time"
 
 	overcommitv1alpha1 "github.com/kubewharf/katalyst-api/pkg/apis/overcommit/v1alpha1"
@@ -61,13 +60,13 @@ func NewFilteredNodeOvercommitConfigInformer(client versioned.Interface, resyncP
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.OvercommitV1alpha1().NodeOvercommitConfigs().List(context.TODO(), options)
+				return client.OvercommitV1alpha1().NodeOvercommitConfigs().List(options)
 			},
 			WatchFunc: func(options v1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.OvercommitV1alpha1().NodeOvercommitConfigs().Watch(context.TODO(), options)
+				return client.OvercommitV1alpha1().NodeOvercommitConfigs().Watch(options)
 			},
 		},
 		&overcommitv1alpha1.NodeOvercommitConfig{},

@@ -19,8 +19,6 @@ limitations under the License.
 package fake
 
 import (
-	"context"
-
 	v1alpha1 "github.com/kubewharf/katalyst-api/pkg/apis/recommendation/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
@@ -41,7 +39,7 @@ var resourcerecommendsResource = schema.GroupVersionResource{Group: "recommendat
 var resourcerecommendsKind = schema.GroupVersionKind{Group: "recommendation.katalyst.kubewharf.io", Version: "v1alpha1", Kind: "ResourceRecommend"}
 
 // Get takes name of the resourceRecommend, and returns the corresponding resourceRecommend object, and an error if there is any.
-func (c *FakeResourceRecommends) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.ResourceRecommend, err error) {
+func (c *FakeResourceRecommends) Get(name string, options v1.GetOptions) (result *v1alpha1.ResourceRecommend, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewGetAction(resourcerecommendsResource, c.ns, name), &v1alpha1.ResourceRecommend{})
 
@@ -52,7 +50,7 @@ func (c *FakeResourceRecommends) Get(ctx context.Context, name string, options v
 }
 
 // List takes label and field selectors, and returns the list of ResourceRecommends that match those selectors.
-func (c *FakeResourceRecommends) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.ResourceRecommendList, err error) {
+func (c *FakeResourceRecommends) List(opts v1.ListOptions) (result *v1alpha1.ResourceRecommendList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewListAction(resourcerecommendsResource, resourcerecommendsKind, c.ns, opts), &v1alpha1.ResourceRecommendList{})
 
@@ -74,14 +72,14 @@ func (c *FakeResourceRecommends) List(ctx context.Context, opts v1.ListOptions) 
 }
 
 // Watch returns a watch.Interface that watches the requested resourceRecommends.
-func (c *FakeResourceRecommends) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeResourceRecommends) Watch(opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewWatchAction(resourcerecommendsResource, c.ns, opts))
 
 }
 
 // Create takes the representation of a resourceRecommend and creates it.  Returns the server's representation of the resourceRecommend, and an error, if there is any.
-func (c *FakeResourceRecommends) Create(ctx context.Context, resourceRecommend *v1alpha1.ResourceRecommend, opts v1.CreateOptions) (result *v1alpha1.ResourceRecommend, err error) {
+func (c *FakeResourceRecommends) Create(resourceRecommend *v1alpha1.ResourceRecommend) (result *v1alpha1.ResourceRecommend, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateAction(resourcerecommendsResource, c.ns, resourceRecommend), &v1alpha1.ResourceRecommend{})
 
@@ -92,7 +90,7 @@ func (c *FakeResourceRecommends) Create(ctx context.Context, resourceRecommend *
 }
 
 // Update takes the representation of a resourceRecommend and updates it. Returns the server's representation of the resourceRecommend, and an error, if there is any.
-func (c *FakeResourceRecommends) Update(ctx context.Context, resourceRecommend *v1alpha1.ResourceRecommend, opts v1.UpdateOptions) (result *v1alpha1.ResourceRecommend, err error) {
+func (c *FakeResourceRecommends) Update(resourceRecommend *v1alpha1.ResourceRecommend) (result *v1alpha1.ResourceRecommend, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateAction(resourcerecommendsResource, c.ns, resourceRecommend), &v1alpha1.ResourceRecommend{})
 
@@ -104,7 +102,7 @@ func (c *FakeResourceRecommends) Update(ctx context.Context, resourceRecommend *
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakeResourceRecommends) UpdateStatus(ctx context.Context, resourceRecommend *v1alpha1.ResourceRecommend, opts v1.UpdateOptions) (*v1alpha1.ResourceRecommend, error) {
+func (c *FakeResourceRecommends) UpdateStatus(resourceRecommend *v1alpha1.ResourceRecommend) (*v1alpha1.ResourceRecommend, error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateSubresourceAction(resourcerecommendsResource, "status", c.ns, resourceRecommend), &v1alpha1.ResourceRecommend{})
 
@@ -115,23 +113,23 @@ func (c *FakeResourceRecommends) UpdateStatus(ctx context.Context, resourceRecom
 }
 
 // Delete takes name of the resourceRecommend and deletes it. Returns an error if one occurs.
-func (c *FakeResourceRecommends) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
+func (c *FakeResourceRecommends) Delete(name string, options *v1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewDeleteActionWithOptions(resourcerecommendsResource, c.ns, name, opts), &v1alpha1.ResourceRecommend{})
+		Invokes(testing.NewDeleteAction(resourcerecommendsResource, c.ns, name), &v1alpha1.ResourceRecommend{})
 
 	return err
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeResourceRecommends) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
-	action := testing.NewDeleteCollectionAction(resourcerecommendsResource, c.ns, listOpts)
+func (c *FakeResourceRecommends) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
+	action := testing.NewDeleteCollectionAction(resourcerecommendsResource, c.ns, listOptions)
 
 	_, err := c.Fake.Invokes(action, &v1alpha1.ResourceRecommendList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched resourceRecommend.
-func (c *FakeResourceRecommends) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.ResourceRecommend, err error) {
+func (c *FakeResourceRecommends) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.ResourceRecommend, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewPatchSubresourceAction(resourcerecommendsResource, c.ns, name, pt, data, subresources...), &v1alpha1.ResourceRecommend{})
 

@@ -19,7 +19,6 @@ limitations under the License.
 package v1alpha2
 
 import (
-	"context"
 	time "time"
 
 	autoscalingv1alpha2 "github.com/kubewharf/katalyst-api/pkg/apis/autoscaling/v1alpha2"
@@ -62,13 +61,13 @@ func NewFilteredKatalystVerticalPodAutoscalerInformer(client versioned.Interface
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.AutoscalingV1alpha2().KatalystVerticalPodAutoscalers(namespace).List(context.TODO(), options)
+				return client.AutoscalingV1alpha2().KatalystVerticalPodAutoscalers(namespace).List(options)
 			},
 			WatchFunc: func(options v1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.AutoscalingV1alpha2().KatalystVerticalPodAutoscalers(namespace).Watch(context.TODO(), options)
+				return client.AutoscalingV1alpha2().KatalystVerticalPodAutoscalers(namespace).Watch(options)
 			},
 		},
 		&autoscalingv1alpha2.KatalystVerticalPodAutoscaler{},

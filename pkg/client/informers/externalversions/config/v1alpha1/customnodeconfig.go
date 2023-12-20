@@ -19,7 +19,6 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"context"
 	time "time"
 
 	configv1alpha1 "github.com/kubewharf/katalyst-api/pkg/apis/config/v1alpha1"
@@ -61,13 +60,13 @@ func NewFilteredCustomNodeConfigInformer(client versioned.Interface, resyncPerio
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.ConfigV1alpha1().CustomNodeConfigs().List(context.TODO(), options)
+				return client.ConfigV1alpha1().CustomNodeConfigs().List(options)
 			},
 			WatchFunc: func(options v1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.ConfigV1alpha1().CustomNodeConfigs().Watch(context.TODO(), options)
+				return client.ConfigV1alpha1().CustomNodeConfigs().Watch(options)
 			},
 		},
 		&configv1alpha1.CustomNodeConfig{},

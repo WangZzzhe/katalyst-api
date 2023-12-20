@@ -19,8 +19,6 @@ limitations under the License.
 package fake
 
 import (
-	"context"
-
 	v1alpha2 "github.com/kubewharf/katalyst-api/pkg/apis/autoscaling/v1alpha2"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
@@ -41,7 +39,7 @@ var katalystverticalpodautoscalersResource = schema.GroupVersionResource{Group: 
 var katalystverticalpodautoscalersKind = schema.GroupVersionKind{Group: "autoscaling.katalyst.kubewharf.io", Version: "v1alpha2", Kind: "KatalystVerticalPodAutoscaler"}
 
 // Get takes name of the katalystVerticalPodAutoscaler, and returns the corresponding katalystVerticalPodAutoscaler object, and an error if there is any.
-func (c *FakeKatalystVerticalPodAutoscalers) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha2.KatalystVerticalPodAutoscaler, err error) {
+func (c *FakeKatalystVerticalPodAutoscalers) Get(name string, options v1.GetOptions) (result *v1alpha2.KatalystVerticalPodAutoscaler, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewGetAction(katalystverticalpodautoscalersResource, c.ns, name), &v1alpha2.KatalystVerticalPodAutoscaler{})
 
@@ -52,7 +50,7 @@ func (c *FakeKatalystVerticalPodAutoscalers) Get(ctx context.Context, name strin
 }
 
 // List takes label and field selectors, and returns the list of KatalystVerticalPodAutoscalers that match those selectors.
-func (c *FakeKatalystVerticalPodAutoscalers) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha2.KatalystVerticalPodAutoscalerList, err error) {
+func (c *FakeKatalystVerticalPodAutoscalers) List(opts v1.ListOptions) (result *v1alpha2.KatalystVerticalPodAutoscalerList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewListAction(katalystverticalpodautoscalersResource, katalystverticalpodautoscalersKind, c.ns, opts), &v1alpha2.KatalystVerticalPodAutoscalerList{})
 
@@ -74,14 +72,14 @@ func (c *FakeKatalystVerticalPodAutoscalers) List(ctx context.Context, opts v1.L
 }
 
 // Watch returns a watch.Interface that watches the requested katalystVerticalPodAutoscalers.
-func (c *FakeKatalystVerticalPodAutoscalers) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeKatalystVerticalPodAutoscalers) Watch(opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewWatchAction(katalystverticalpodautoscalersResource, c.ns, opts))
 
 }
 
 // Create takes the representation of a katalystVerticalPodAutoscaler and creates it.  Returns the server's representation of the katalystVerticalPodAutoscaler, and an error, if there is any.
-func (c *FakeKatalystVerticalPodAutoscalers) Create(ctx context.Context, katalystVerticalPodAutoscaler *v1alpha2.KatalystVerticalPodAutoscaler, opts v1.CreateOptions) (result *v1alpha2.KatalystVerticalPodAutoscaler, err error) {
+func (c *FakeKatalystVerticalPodAutoscalers) Create(katalystVerticalPodAutoscaler *v1alpha2.KatalystVerticalPodAutoscaler) (result *v1alpha2.KatalystVerticalPodAutoscaler, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewCreateAction(katalystverticalpodautoscalersResource, c.ns, katalystVerticalPodAutoscaler), &v1alpha2.KatalystVerticalPodAutoscaler{})
 
@@ -92,7 +90,7 @@ func (c *FakeKatalystVerticalPodAutoscalers) Create(ctx context.Context, katalys
 }
 
 // Update takes the representation of a katalystVerticalPodAutoscaler and updates it. Returns the server's representation of the katalystVerticalPodAutoscaler, and an error, if there is any.
-func (c *FakeKatalystVerticalPodAutoscalers) Update(ctx context.Context, katalystVerticalPodAutoscaler *v1alpha2.KatalystVerticalPodAutoscaler, opts v1.UpdateOptions) (result *v1alpha2.KatalystVerticalPodAutoscaler, err error) {
+func (c *FakeKatalystVerticalPodAutoscalers) Update(katalystVerticalPodAutoscaler *v1alpha2.KatalystVerticalPodAutoscaler) (result *v1alpha2.KatalystVerticalPodAutoscaler, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateAction(katalystverticalpodautoscalersResource, c.ns, katalystVerticalPodAutoscaler), &v1alpha2.KatalystVerticalPodAutoscaler{})
 
@@ -104,7 +102,7 @@ func (c *FakeKatalystVerticalPodAutoscalers) Update(ctx context.Context, katalys
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakeKatalystVerticalPodAutoscalers) UpdateStatus(ctx context.Context, katalystVerticalPodAutoscaler *v1alpha2.KatalystVerticalPodAutoscaler, opts v1.UpdateOptions) (*v1alpha2.KatalystVerticalPodAutoscaler, error) {
+func (c *FakeKatalystVerticalPodAutoscalers) UpdateStatus(katalystVerticalPodAutoscaler *v1alpha2.KatalystVerticalPodAutoscaler) (*v1alpha2.KatalystVerticalPodAutoscaler, error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewUpdateSubresourceAction(katalystverticalpodautoscalersResource, "status", c.ns, katalystVerticalPodAutoscaler), &v1alpha2.KatalystVerticalPodAutoscaler{})
 
@@ -115,23 +113,23 @@ func (c *FakeKatalystVerticalPodAutoscalers) UpdateStatus(ctx context.Context, k
 }
 
 // Delete takes name of the katalystVerticalPodAutoscaler and deletes it. Returns an error if one occurs.
-func (c *FakeKatalystVerticalPodAutoscalers) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
+func (c *FakeKatalystVerticalPodAutoscalers) Delete(name string, options *v1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewDeleteActionWithOptions(katalystverticalpodautoscalersResource, c.ns, name, opts), &v1alpha2.KatalystVerticalPodAutoscaler{})
+		Invokes(testing.NewDeleteAction(katalystverticalpodautoscalersResource, c.ns, name), &v1alpha2.KatalystVerticalPodAutoscaler{})
 
 	return err
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeKatalystVerticalPodAutoscalers) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
-	action := testing.NewDeleteCollectionAction(katalystverticalpodautoscalersResource, c.ns, listOpts)
+func (c *FakeKatalystVerticalPodAutoscalers) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
+	action := testing.NewDeleteCollectionAction(katalystverticalpodautoscalersResource, c.ns, listOptions)
 
 	_, err := c.Fake.Invokes(action, &v1alpha2.KatalystVerticalPodAutoscalerList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched katalystVerticalPodAutoscaler.
-func (c *FakeKatalystVerticalPodAutoscalers) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha2.KatalystVerticalPodAutoscaler, err error) {
+func (c *FakeKatalystVerticalPodAutoscalers) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha2.KatalystVerticalPodAutoscaler, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewPatchSubresourceAction(katalystverticalpodautoscalersResource, c.ns, name, pt, data, subresources...), &v1alpha2.KatalystVerticalPodAutoscaler{})
 

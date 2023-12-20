@@ -19,8 +19,6 @@ limitations under the License.
 package fake
 
 import (
-	"context"
-
 	v1alpha1 "github.com/kubewharf/katalyst-api/pkg/apis/config/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
@@ -40,7 +38,7 @@ var customnodeconfigsResource = schema.GroupVersionResource{Group: "config.katal
 var customnodeconfigsKind = schema.GroupVersionKind{Group: "config.katalyst.kubewharf.io", Version: "v1alpha1", Kind: "CustomNodeConfig"}
 
 // Get takes name of the customNodeConfig, and returns the corresponding customNodeConfig object, and an error if there is any.
-func (c *FakeCustomNodeConfigs) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.CustomNodeConfig, err error) {
+func (c *FakeCustomNodeConfigs) Get(name string, options v1.GetOptions) (result *v1alpha1.CustomNodeConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootGetAction(customnodeconfigsResource, name), &v1alpha1.CustomNodeConfig{})
 	if obj == nil {
@@ -50,7 +48,7 @@ func (c *FakeCustomNodeConfigs) Get(ctx context.Context, name string, options v1
 }
 
 // List takes label and field selectors, and returns the list of CustomNodeConfigs that match those selectors.
-func (c *FakeCustomNodeConfigs) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.CustomNodeConfigList, err error) {
+func (c *FakeCustomNodeConfigs) List(opts v1.ListOptions) (result *v1alpha1.CustomNodeConfigList, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootListAction(customnodeconfigsResource, customnodeconfigsKind, opts), &v1alpha1.CustomNodeConfigList{})
 	if obj == nil {
@@ -71,13 +69,13 @@ func (c *FakeCustomNodeConfigs) List(ctx context.Context, opts v1.ListOptions) (
 }
 
 // Watch returns a watch.Interface that watches the requested customNodeConfigs.
-func (c *FakeCustomNodeConfigs) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
+func (c *FakeCustomNodeConfigs) Watch(opts v1.ListOptions) (watch.Interface, error) {
 	return c.Fake.
 		InvokesWatch(testing.NewRootWatchAction(customnodeconfigsResource, opts))
 }
 
 // Create takes the representation of a customNodeConfig and creates it.  Returns the server's representation of the customNodeConfig, and an error, if there is any.
-func (c *FakeCustomNodeConfigs) Create(ctx context.Context, customNodeConfig *v1alpha1.CustomNodeConfig, opts v1.CreateOptions) (result *v1alpha1.CustomNodeConfig, err error) {
+func (c *FakeCustomNodeConfigs) Create(customNodeConfig *v1alpha1.CustomNodeConfig) (result *v1alpha1.CustomNodeConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootCreateAction(customnodeconfigsResource, customNodeConfig), &v1alpha1.CustomNodeConfig{})
 	if obj == nil {
@@ -87,7 +85,7 @@ func (c *FakeCustomNodeConfigs) Create(ctx context.Context, customNodeConfig *v1
 }
 
 // Update takes the representation of a customNodeConfig and updates it. Returns the server's representation of the customNodeConfig, and an error, if there is any.
-func (c *FakeCustomNodeConfigs) Update(ctx context.Context, customNodeConfig *v1alpha1.CustomNodeConfig, opts v1.UpdateOptions) (result *v1alpha1.CustomNodeConfig, err error) {
+func (c *FakeCustomNodeConfigs) Update(customNodeConfig *v1alpha1.CustomNodeConfig) (result *v1alpha1.CustomNodeConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootUpdateAction(customnodeconfigsResource, customNodeConfig), &v1alpha1.CustomNodeConfig{})
 	if obj == nil {
@@ -98,7 +96,7 @@ func (c *FakeCustomNodeConfigs) Update(ctx context.Context, customNodeConfig *v1
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *FakeCustomNodeConfigs) UpdateStatus(ctx context.Context, customNodeConfig *v1alpha1.CustomNodeConfig, opts v1.UpdateOptions) (*v1alpha1.CustomNodeConfig, error) {
+func (c *FakeCustomNodeConfigs) UpdateStatus(customNodeConfig *v1alpha1.CustomNodeConfig) (*v1alpha1.CustomNodeConfig, error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootUpdateSubresourceAction(customnodeconfigsResource, "status", customNodeConfig), &v1alpha1.CustomNodeConfig{})
 	if obj == nil {
@@ -108,22 +106,22 @@ func (c *FakeCustomNodeConfigs) UpdateStatus(ctx context.Context, customNodeConf
 }
 
 // Delete takes name of the customNodeConfig and deletes it. Returns an error if one occurs.
-func (c *FakeCustomNodeConfigs) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
+func (c *FakeCustomNodeConfigs) Delete(name string, options *v1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewRootDeleteActionWithOptions(customnodeconfigsResource, name, opts), &v1alpha1.CustomNodeConfig{})
+		Invokes(testing.NewRootDeleteAction(customnodeconfigsResource, name), &v1alpha1.CustomNodeConfig{})
 	return err
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *FakeCustomNodeConfigs) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
-	action := testing.NewRootDeleteCollectionAction(customnodeconfigsResource, listOpts)
+func (c *FakeCustomNodeConfigs) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
+	action := testing.NewRootDeleteCollectionAction(customnodeconfigsResource, listOptions)
 
 	_, err := c.Fake.Invokes(action, &v1alpha1.CustomNodeConfigList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched customNodeConfig.
-func (c *FakeCustomNodeConfigs) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.CustomNodeConfig, err error) {
+func (c *FakeCustomNodeConfigs) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.CustomNodeConfig, err error) {
 	obj, err := c.Fake.
 		Invokes(testing.NewRootPatchSubresourceAction(customnodeconfigsResource, name, pt, data, subresources...), &v1alpha1.CustomNodeConfig{})
 	if obj == nil {

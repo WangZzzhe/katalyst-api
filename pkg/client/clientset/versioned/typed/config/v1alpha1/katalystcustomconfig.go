@@ -19,7 +19,6 @@ limitations under the License.
 package v1alpha1
 
 import (
-	"context"
 	"time"
 
 	v1alpha1 "github.com/kubewharf/katalyst-api/pkg/apis/config/v1alpha1"
@@ -38,15 +37,15 @@ type KatalystCustomConfigsGetter interface {
 
 // KatalystCustomConfigInterface has methods to work with KatalystCustomConfig resources.
 type KatalystCustomConfigInterface interface {
-	Create(ctx context.Context, katalystCustomConfig *v1alpha1.KatalystCustomConfig, opts v1.CreateOptions) (*v1alpha1.KatalystCustomConfig, error)
-	Update(ctx context.Context, katalystCustomConfig *v1alpha1.KatalystCustomConfig, opts v1.UpdateOptions) (*v1alpha1.KatalystCustomConfig, error)
-	UpdateStatus(ctx context.Context, katalystCustomConfig *v1alpha1.KatalystCustomConfig, opts v1.UpdateOptions) (*v1alpha1.KatalystCustomConfig, error)
-	Delete(ctx context.Context, name string, opts v1.DeleteOptions) error
-	DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error
-	Get(ctx context.Context, name string, opts v1.GetOptions) (*v1alpha1.KatalystCustomConfig, error)
-	List(ctx context.Context, opts v1.ListOptions) (*v1alpha1.KatalystCustomConfigList, error)
-	Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error)
-	Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.KatalystCustomConfig, err error)
+	Create(*v1alpha1.KatalystCustomConfig) (*v1alpha1.KatalystCustomConfig, error)
+	Update(*v1alpha1.KatalystCustomConfig) (*v1alpha1.KatalystCustomConfig, error)
+	UpdateStatus(*v1alpha1.KatalystCustomConfig) (*v1alpha1.KatalystCustomConfig, error)
+	Delete(name string, options *v1.DeleteOptions) error
+	DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error
+	Get(name string, options v1.GetOptions) (*v1alpha1.KatalystCustomConfig, error)
+	List(opts v1.ListOptions) (*v1alpha1.KatalystCustomConfigList, error)
+	Watch(opts v1.ListOptions) (watch.Interface, error)
+	Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.KatalystCustomConfig, err error)
 	KatalystCustomConfigExpansion
 }
 
@@ -65,20 +64,20 @@ func newKatalystCustomConfigs(c *ConfigV1alpha1Client, namespace string) *kataly
 }
 
 // Get takes name of the katalystCustomConfig, and returns the corresponding katalystCustomConfig object, and an error if there is any.
-func (c *katalystCustomConfigs) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.KatalystCustomConfig, err error) {
+func (c *katalystCustomConfigs) Get(name string, options v1.GetOptions) (result *v1alpha1.KatalystCustomConfig, err error) {
 	result = &v1alpha1.KatalystCustomConfig{}
 	err = c.client.Get().
 		Namespace(c.ns).
 		Resource("katalystcustomconfigs").
 		Name(name).
 		VersionedParams(&options, scheme.ParameterCodec).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // List takes label and field selectors, and returns the list of KatalystCustomConfigs that match those selectors.
-func (c *katalystCustomConfigs) List(ctx context.Context, opts v1.ListOptions) (result *v1alpha1.KatalystCustomConfigList, err error) {
+func (c *katalystCustomConfigs) List(opts v1.ListOptions) (result *v1alpha1.KatalystCustomConfigList, err error) {
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -89,13 +88,13 @@ func (c *katalystCustomConfigs) List(ctx context.Context, opts v1.ListOptions) (
 		Resource("katalystcustomconfigs").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // Watch returns a watch.Interface that watches the requested katalystCustomConfigs.
-func (c *katalystCustomConfigs) Watch(ctx context.Context, opts v1.ListOptions) (watch.Interface, error) {
+func (c *katalystCustomConfigs) Watch(opts v1.ListOptions) (watch.Interface, error) {
 	var timeout time.Duration
 	if opts.TimeoutSeconds != nil {
 		timeout = time.Duration(*opts.TimeoutSeconds) * time.Second
@@ -106,90 +105,87 @@ func (c *katalystCustomConfigs) Watch(ctx context.Context, opts v1.ListOptions) 
 		Resource("katalystcustomconfigs").
 		VersionedParams(&opts, scheme.ParameterCodec).
 		Timeout(timeout).
-		Watch(ctx)
+		Watch()
 }
 
 // Create takes the representation of a katalystCustomConfig and creates it.  Returns the server's representation of the katalystCustomConfig, and an error, if there is any.
-func (c *katalystCustomConfigs) Create(ctx context.Context, katalystCustomConfig *v1alpha1.KatalystCustomConfig, opts v1.CreateOptions) (result *v1alpha1.KatalystCustomConfig, err error) {
+func (c *katalystCustomConfigs) Create(katalystCustomConfig *v1alpha1.KatalystCustomConfig) (result *v1alpha1.KatalystCustomConfig, err error) {
 	result = &v1alpha1.KatalystCustomConfig{}
 	err = c.client.Post().
 		Namespace(c.ns).
 		Resource("katalystcustomconfigs").
-		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(katalystCustomConfig).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // Update takes the representation of a katalystCustomConfig and updates it. Returns the server's representation of the katalystCustomConfig, and an error, if there is any.
-func (c *katalystCustomConfigs) Update(ctx context.Context, katalystCustomConfig *v1alpha1.KatalystCustomConfig, opts v1.UpdateOptions) (result *v1alpha1.KatalystCustomConfig, err error) {
+func (c *katalystCustomConfigs) Update(katalystCustomConfig *v1alpha1.KatalystCustomConfig) (result *v1alpha1.KatalystCustomConfig, err error) {
 	result = &v1alpha1.KatalystCustomConfig{}
 	err = c.client.Put().
 		Namespace(c.ns).
 		Resource("katalystcustomconfigs").
 		Name(katalystCustomConfig.Name).
-		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(katalystCustomConfig).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // UpdateStatus was generated because the type contains a Status member.
 // Add a +genclient:noStatus comment above the type to avoid generating UpdateStatus().
-func (c *katalystCustomConfigs) UpdateStatus(ctx context.Context, katalystCustomConfig *v1alpha1.KatalystCustomConfig, opts v1.UpdateOptions) (result *v1alpha1.KatalystCustomConfig, err error) {
+
+func (c *katalystCustomConfigs) UpdateStatus(katalystCustomConfig *v1alpha1.KatalystCustomConfig) (result *v1alpha1.KatalystCustomConfig, err error) {
 	result = &v1alpha1.KatalystCustomConfig{}
 	err = c.client.Put().
 		Namespace(c.ns).
 		Resource("katalystcustomconfigs").
 		Name(katalystCustomConfig.Name).
 		SubResource("status").
-		VersionedParams(&opts, scheme.ParameterCodec).
 		Body(katalystCustomConfig).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
 
 // Delete takes name of the katalystCustomConfig and deletes it. Returns an error if one occurs.
-func (c *katalystCustomConfigs) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
+func (c *katalystCustomConfigs) Delete(name string, options *v1.DeleteOptions) error {
 	return c.client.Delete().
 		Namespace(c.ns).
 		Resource("katalystcustomconfigs").
 		Name(name).
-		Body(&opts).
-		Do(ctx).
+		Body(options).
+		Do().
 		Error()
 }
 
 // DeleteCollection deletes a collection of objects.
-func (c *katalystCustomConfigs) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
+func (c *katalystCustomConfigs) DeleteCollection(options *v1.DeleteOptions, listOptions v1.ListOptions) error {
 	var timeout time.Duration
-	if listOpts.TimeoutSeconds != nil {
-		timeout = time.Duration(*listOpts.TimeoutSeconds) * time.Second
+	if listOptions.TimeoutSeconds != nil {
+		timeout = time.Duration(*listOptions.TimeoutSeconds) * time.Second
 	}
 	return c.client.Delete().
 		Namespace(c.ns).
 		Resource("katalystcustomconfigs").
-		VersionedParams(&listOpts, scheme.ParameterCodec).
+		VersionedParams(&listOptions, scheme.ParameterCodec).
 		Timeout(timeout).
-		Body(&opts).
-		Do(ctx).
+		Body(options).
+		Do().
 		Error()
 }
 
 // Patch applies the patch and returns the patched katalystCustomConfig.
-func (c *katalystCustomConfigs) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *v1alpha1.KatalystCustomConfig, err error) {
+func (c *katalystCustomConfigs) Patch(name string, pt types.PatchType, data []byte, subresources ...string) (result *v1alpha1.KatalystCustomConfig, err error) {
 	result = &v1alpha1.KatalystCustomConfig{}
 	err = c.client.Patch(pt).
 		Namespace(c.ns).
 		Resource("katalystcustomconfigs").
-		Name(name).
 		SubResource(subresources...).
-		VersionedParams(&opts, scheme.ParameterCodec).
+		Name(name).
 		Body(data).
-		Do(ctx).
+		Do().
 		Into(result)
 	return
 }
