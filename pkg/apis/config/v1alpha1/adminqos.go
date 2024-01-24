@@ -278,6 +278,9 @@ type CPUPressureEvictionConfig struct {
 	// +kubebuilder:validation:Minimum=0
 	// +optional
 	GracePeriod *int64 `json:"gracePeriod,omitempty"`
+
+	EnableSystemUsageEviction         *bool    `json:"enableSystemUsageEviction,omitempty"`
+	SystemUsageThresholdMetPercentage *float64 `json:"systemUsageThresholdMetPercentage,omitempty"`
 }
 
 type MemoryPressureEvictionConfig struct {
