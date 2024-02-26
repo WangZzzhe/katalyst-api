@@ -21,6 +21,9 @@ const (
 	NodeAnnotationCPUOvercommitRatioKey    = "katalyst.kubewharf.io/cpu_overcommit_ratio"
 	NodeAnnotationMemoryOvercommitRatioKey = "katalyst.kubewharf.io/memory_overcommit_ratio"
 
+	NodeAnnotationPredictCPUOvercommitRatioKey    = "katalyst.kubewharf.io/predict_cpu_overcommit_ratio"
+	NodeAnnotationPredictMemoryOvercommitRatioKey = "katalyst.kubewharf.io/predict_memory_overcommit_ratio"
+
 	NodeAnnotationOriginalCapacityCPUKey       = "katalyst.kubewharf.io/original_capacity_cpu"
 	NodeAnnotationOriginalCapacityMemoryKey    = "katalyst.kubewharf.io/original_capacity_memory"
 	NodeAnnotationOriginalAllocatableCPUKey    = "katalyst.kubewharf.io/original_allocatable_cpu"
