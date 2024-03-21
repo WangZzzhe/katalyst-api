@@ -16,7 +16,9 @@ package v1beta3
 
 import (
 	"fmt"
+	"k8s.io/utils/pointer"
 
+	corev1 "k8s.io/api/core/v1"
 	v1 "k8s.io/api/core/v1"
 	"k8s.io/kube-scheduler/config/v1beta3"
 
@@ -34,6 +36,30 @@ var defaultReclaimedResourceSpec = []v1beta3.ResourceSpec{
 }
 
 var defaultAlignedResourceSpec = []string{v1.ResourceCPU.String(), v1.ResourceMemory.String()}
+
+var (
+	//LoadAware default args
+	defaultNodeMonitorExpiredSeconds int64 = 180
+	defaultResourceWeights                 = map[corev1.ResourceName]int64{
+		corev1.ResourceCPU:    1,
+		corev1.ResourceMemory: 1,
+	}
+
+	defaultUsageThresholds = map[corev1.ResourceName]int64{
+		corev1.ResourceCPU:    70, // 70%
+		corev1.ResourceMemory: 95, // 95%
+	}
+
+	defaultEstimatedScalingFactors = map[corev1.ResourceName]int64{
+		corev1.ResourceCPU:    85, // 85%
+		corev1.ResourceMemory: 70, // 70%
+	}
+	defaultCalculateIndicatorWeight = map[IndicatorType]int64{
+		consts.Usage15MinAvgKey: 30, //30%
+		consts.Usage1HourMaxKey: 30, //30%
+		consts.Usage1DayMaxKey:  40, //40%
+	}
+)
 
 // SetDefaults_QoSAwareNodeResourcesFitArgs sets the default parameters for QoSAwareNodeResourcesFit plugin.
 func SetDefaults_QoSAwareNodeResourcesFitArgs(obj *QoSAwareNodeResourcesFitArgs) {
@@ -105,5 +131,28 @@ func SetDefaults_NodeResourceTopologyArgs(obj *NodeResourceTopologyArgs) {
 	}
 	if obj.ResourcePluginPolicy == "" {
 		obj.ResourcePluginPolicy = consts.ResourcePluginPolicyNameDynamic
+	}
+}
+
+// nolint
+// SetDefaults_LoadAwareArgs sets the default parameters for LoadAwareScheduling plugin.
+func SetDefaults_LoadAwareArgs(obj *LoadAwareArgs) {
+	if obj.FilterExpiredNodeMonitor == nil {
+		obj.FilterExpiredNodeMonitor = pointer.BoolPtr(true)
+	}
+	if obj.NodeMonitorExpiredSeconds == nil {
+		obj.NodeMonitorExpiredSeconds = pointer.Int64Ptr(defaultNodeMonitorExpiredSeconds)
+	}
+	if len(obj.ResourceWeights) == 0 {
+		obj.ResourceWeights = defaultResourceWeights
+	}
+	if len(obj.UsageThresholds) == 0 {
+		obj.UsageThresholds = defaultUsageThresholds
+	}
+	if len(obj.EstimatedScalingFactors) == 0 {
+		obj.EstimatedScalingFactors = defaultEstimatedScalingFactors
+	}
+	if len(obj.CalculateIndicatorWeight) == 0 {
+		obj.CalculateIndicatorWeight = defaultCalculateIndicatorWeight
 	}
 }

@@ -16,6 +16,7 @@ package validation
 
 import (
 	"fmt"
+	corev1 "k8s.io/api/core/v1"
 
 	"k8s.io/apimachinery/pkg/util/sets"
 	"k8s.io/apimachinery/pkg/util/validation/field"
@@ -153,6 +154,78 @@ func validateResourcePolicy(resourcePolicy consts.ResourcePluginPolicyName, path
 	if resourcePolicy != consts.ResourcePluginPolicyNameDynamic &&
 		resourcePolicy != consts.ResourcePluginPolicyNameNative {
 		return field.Invalid(path, resourcePolicy, "invalid ResourcePolicy")
+	}
+	return nil
+}
+
+// ValidateLoadAwareSchedulingArgs validates that LoadAwareArgs are correct.
+func ValidateLoadAwareSchedulingArgs(args *config.LoadAwareArgs) error {
+	if args.NodeMonitorExpiredSeconds != nil && *args.NodeMonitorExpiredSeconds <= 0 {
+		return fmt.Errorf("NodeMonitorExpiredSeconds err, NodeMonitorExpiredSeconds should be a positive value")
+	}
+	if err := validateResourceWeights(args.ResourceWeights); err != nil {
+		return fmt.Errorf("ResourceWeights err, %v", err)
+	}
+	if err := validateResourceThresholds(args.UsageThresholds); err != nil {
+		return fmt.Errorf("UsageThresholds err, %v", err)
+	}
+	if err := validateEstimatedResourceThresholds(args.EstimatedScalingFactors); err != nil {
+		return fmt.Errorf("EstimatedScalingFactors err, %v", err)
+	}
+	for resourceName := range args.ResourceWeights {
+		if _, ok := args.EstimatedScalingFactors[resourceName]; !ok {
+			return fmt.Errorf("LoadAwareValidating err, resourceName %v in ResourceWeights, but not find in EstimatedScalingFactors", resourceName)
+		}
+	}
+	if err := validateCalculateIndicatorWeight(args.CalculateIndicatorWeight); err != nil {
+		return fmt.Errorf("CalculateIndicatorWeight err, %v", err)
+	}
+	return nil
+}
+func validateResourceWeights(resources map[corev1.ResourceName]int64) error {
+	for resourceName, weight := range resources {
+		if weight < 0 {
+			return fmt.Errorf("resource Weight of %v should be a positive value, got %v", resourceName, weight)
+		}
+		if weight > 100 {
+			return fmt.Errorf("resource Weight of %v should be less than 100, got %v", resourceName, weight)
+		}
+	}
+	return nil
+}
+
+func validateResourceThresholds(thresholds map[corev1.ResourceName]int64) error {
+	for resourceName, thresholdPercent := range thresholds {
+		if thresholdPercent < 0 {
+			return fmt.Errorf("resource Threshold of %v should be a positive value, got %v", resourceName, thresholdPercent)
+		}
+		if thresholdPercent > 100 {
+			return fmt.Errorf("resource Threshold of %v should be less than 100, got %v", resourceName, thresholdPercent)
+		}
+	}
+	return nil
+}
+
+func validateEstimatedResourceThresholds(thresholds map[corev1.ResourceName]int64) error {
+	for resourceName, thresholdPercent := range thresholds {
+		if thresholdPercent < 0 {
+			return fmt.Errorf("estimated resource Threshold of %v should be a positive value, got %v", resourceName, thresholdPercent)
+		}
+		if thresholdPercent > 100 {
+			return fmt.Errorf("estimated  resource Threshold of %v should be less than 100, got %v", resourceName, thresholdPercent)
+		}
+	}
+	return nil
+}
+
+func validateCalculateIndicatorWeight(calculateIndicatorWeight map[config.IndicatorType]int64) error {
+	for indicator, weight := range calculateIndicatorWeight {
+		if weight < 0 {
+			return fmt.Errorf("calculate Indicator weight of %v should be a positive value, got %v", indicator, weight)
+		}
+		if weight > 100 {
+			return fmt.Errorf("calculate Indicator weight of %v should be less than 100, got %v", indicator, weight)
+		}
 	}
 	return nil
 }

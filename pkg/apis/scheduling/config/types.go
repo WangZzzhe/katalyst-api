@@ -15,6 +15,7 @@
 package config
 
 import (
+	corev1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	kubeschedulerconfig "k8s.io/kubernetes/pkg/scheduler/apis/config"
 
@@ -84,4 +85,34 @@ type ScoringStrategy struct {
 
 	// Arguments specific to RequestedToCapacityRatio strategy.
 	ReclaimedRequestedToCapacityRatio *kubeschedulerconfig.RequestedToCapacityRatioParam `json:"reclaimedRequestedToCapacityRatio,omitempty"`
+}
+
+// IndicatorType indicator participate in calculate score
+type IndicatorType string
+
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
+// LoadAwareArgs holds arguments used to configure the LoadAwareScheduling plugin.
+type LoadAwareArgs struct {
+	metav1.TypeMeta
+	// FilterExpiredNodeMonitor indicates whether to filter nodes where  fails to update NodeMonitor.
+	FilterExpiredNodeMonitor *bool `json:"filterExpiredNodeMonitor,omitempty"`
+	// NodeMonitorExpiredSeconds indicates the NodeMonitor expiration in seconds.
+	// When NodeMetrics expired, the node is considered abnormal.
+	// default 5 minute
+	NodeMonitorExpiredSeconds *int64 `json:"NodeMonitorExpiredSeconds,omitempty"`
+	// ResourceWeights indicates the weights of resources.
+	// The weights of CPU and Memory are both 1 by default.
+	ResourceWeights map[corev1.ResourceName]int64 `json:"resourceWeights,omitempty"`
+	// UsageThresholds indicates the resource utilization threshold.
+	// The default for CPU is 70%, and the default for memory is 95%.
+	UsageThresholds map[corev1.ResourceName]int64 `json:"usageThresholds,omitempty"`
+	// EstimatedScalingFactors indicates the factor when estimating resource usage.
+	// The default value of CPU is 85%, and the default value of Memory is 70%.
+	EstimatedScalingFactors map[corev1.ResourceName]int64 `json:"estimatedScalingFactors,omitempty"`
+	// CalculateIndicatorWeight indicates the participates in calculate indicator weight
+	// The default avg_15min 30, max_1hour 30, max_1day 40
+	CalculateIndicatorWeight map[IndicatorType]int64 `json:"calculateIndicatorWeight,omitempty"`
+
+	KubeConfigPath string `json:"kubeConfigPath,omitempty"`
 }
