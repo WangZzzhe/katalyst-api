@@ -326,3 +326,58 @@ type NUMAMetricInfo struct {
 	// Usage contains the real-time resource usage for this NUMA node
 	Usage *ResourceMetric `json:"usage"`
 }
+
+/* -------------------- node metrics -------------------- */
+
+// +genclient
+// +genclient:nonNamespaced
+// +kubebuilder:object:root=true
+// +kubebuilder:subresource:status
+// +kubebuilder:resource:scope=Cluster,shortName=nm
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
+// NodeMonitor  define the node resource usage
+type NodeMonitor struct {
+	metav1.TypeMeta `json:",inline"`
+	// Standard object's metadata.
+	// +optional
+	metav1.ObjectMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
+	// +optional
+	Spec NodeMonitorSpec `json:"spec,omitempty"`
+	// +optional
+	Status NodeMonitorStatus `json:"status,omitempty"`
+}
+
+// NodeMonitorSpec defines the desired state of NodeMonitor
+type NodeMonitorSpec struct {
+
+	// ReportIntervalSeconds represents the report period in seconds
+	ReportIntervalSeconds *int64 `json:"reportIntervalSeconds,omitempty"`
+}
+
+// NodeMonitorStatus defines the observed state of NodeMonitor
+type NodeMonitorStatus struct {
+	// UpdateTime is the last time this NodeMonitor was updated.
+	UpdateTime *metav1.Time `json:"updateTime,omitempty"`
+
+	// NodeUsage contains the metrics for this node.
+	NodeUsage map[string]v1.ResourceList `json:"nodeUsage,omitempty"`
+
+	// NodeUsage contains the metrics for this pod.
+	// +optional
+	PodUsage map[string]v1.ResourceList `json:"podUsage,omitempty"`
+}
+
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
+// NodeMonitorList is a list of NodeMonitor items.
+type NodeMonitorList struct {
+	metav1.TypeMeta `json:",inline"`
+
+	// Standard list metadata.
+	// +optional
+	metav1.ListMeta `json:"metadata,omitempty" protobuf:"bytes,1,opt,name=metadata"`
+
+	// Items is a list of NodeMonitor objects.
+	Items []NodeMonitor `json:"items" protobuf:"bytes,2,rep,name=items"`
+}

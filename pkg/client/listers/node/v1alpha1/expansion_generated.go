@@ -21,3 +21,7 @@ package v1alpha1
 // CustomNodeResourceListerExpansion allows custom methods to be added to
 // CustomNodeResourceLister.
 type CustomNodeResourceListerExpansion interface{}
+
+// NodeMonitorListerExpansion allows custom methods to be added to
+// NodeMonitorLister.
+type NodeMonitorListerExpansion interface{}
