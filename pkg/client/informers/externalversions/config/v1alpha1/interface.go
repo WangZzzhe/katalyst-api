@@ -24,6 +24,8 @@ import (
 
 // Interface provides access to all the informers in this group version.
 type Interface interface {
+	// AdminQoSConfigurations returns a AdminQoSConfigurationInformer.
+	AdminQoSConfigurations() AdminQoSConfigurationInformer
 	// CustomNodeConfigs returns a CustomNodeConfigInformer.
 	CustomNodeConfigs() CustomNodeConfigInformer
 	// KatalystCustomConfigs returns a KatalystCustomConfigInformer.
@@ -39,6 +41,11 @@ type version struct {
 // New returns a new Interface.
 func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakListOptions internalinterfaces.TweakListOptionsFunc) Interface {
 	return &version{factory: f, namespace: namespace, tweakListOptions: tweakListOptions}
+}
+
+// AdminQoSConfigurations returns a AdminQoSConfigurationInformer.
+func (v *version) AdminQoSConfigurations() AdminQoSConfigurationInformer {
+	return &adminQoSConfigurationInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }
 
 // CustomNodeConfigs returns a CustomNodeConfigInformer.
