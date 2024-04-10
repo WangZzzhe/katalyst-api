@@ -18,6 +18,14 @@ limitations under the License.
 
 package v1alpha1
 
+// AdminQoSConfigurationListerExpansion allows custom methods to be added to
+// AdminQoSConfigurationLister.
+type AdminQoSConfigurationListerExpansion interface{}
+
+// AdminQoSConfigurationNamespaceListerExpansion allows custom methods to be added to
+// AdminQoSConfigurationNamespaceLister.
+type AdminQoSConfigurationNamespaceListerExpansion interface{}
+
 // CustomNodeConfigListerExpansion allows custom methods to be added to
 // CustomNodeConfigLister.
 type CustomNodeConfigListerExpansion interface{}

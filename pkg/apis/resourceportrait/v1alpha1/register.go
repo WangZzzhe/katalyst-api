@@ -8,7 +8,7 @@ import (
 
 const (
 	// GroupName is the group name used in this package
-	GroupName string = "resourceportrait.katalyst.kubewharf.io"
+	GroupName string = "resourceportrait.halo.io"
 )
 
 // SchemeGroupVersion is group version used to register these objects

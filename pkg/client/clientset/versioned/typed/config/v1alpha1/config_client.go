@@ -28,6 +28,7 @@ import (
 
 type ConfigV1alpha1Interface interface {
 	RESTClient() rest.Interface
+	AdminQoSConfigurationsGetter
 	CustomNodeConfigsGetter
 	KatalystCustomConfigsGetter
 }
@@ -35,6 +36,10 @@ type ConfigV1alpha1Interface interface {
 // ConfigV1alpha1Client is used to interact with features provided by the config.katalyst.kubewharf.io group.
 type ConfigV1alpha1Client struct {
 	restClient rest.Interface
+}
+
+func (c *ConfigV1alpha1Client) AdminQoSConfigurations(namespace string) AdminQoSConfigurationInterface {
+	return newAdminQoSConfigurations(c, namespace)
 }
 
 func (c *ConfigV1alpha1Client) CustomNodeConfigs() CustomNodeConfigInterface {
