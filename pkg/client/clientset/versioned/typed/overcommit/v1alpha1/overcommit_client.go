@@ -31,7 +31,7 @@ type OvercommitV1alpha1Interface interface {
 	NodeOvercommitConfigsGetter
 }
 
-// OvercommitV1alpha1Client is used to interact with features provided by the overcommit.katalyst.kubewharf.io group.
+// OvercommitV1alpha1Client is used to interact with features provided by the overcommit.halo.io group.
 type OvercommitV1alpha1Client struct {
 	restClient rest.Interface
 }

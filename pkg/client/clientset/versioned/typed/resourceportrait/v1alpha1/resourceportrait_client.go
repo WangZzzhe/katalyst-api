@@ -32,7 +32,7 @@ type ResourceportraitV1alpha1Interface interface {
 	ResourcePortraitsGetter
 }
 
-// ResourceportraitV1alpha1Client is used to interact with features provided by the resourceportrait.katalyst.kubewharf.io group.
+// ResourceportraitV1alpha1Client is used to interact with features provided by the resourceportrait.halo.io group.
 type ResourceportraitV1alpha1Client struct {
 	restClient rest.Interface
 }

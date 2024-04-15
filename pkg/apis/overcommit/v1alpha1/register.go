@@ -24,7 +24,7 @@ import (
 
 const (
 	// GroupName is the group name used in this package
-	GroupName string = "overcommit.katalyst.kubewharf.io"
+	GroupName string = "overcommit.halo.io"
 )
 
 // SchemeGroupVersion is group version used to register these objects

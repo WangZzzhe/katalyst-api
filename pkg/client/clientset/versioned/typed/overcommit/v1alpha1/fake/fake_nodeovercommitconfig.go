@@ -35,9 +35,9 @@ type FakeNodeOvercommitConfigs struct {
 	Fake *FakeOvercommitV1alpha1
 }
 
-var nodeovercommitconfigsResource = schema.GroupVersionResource{Group: "overcommit.katalyst.kubewharf.io", Version: "v1alpha1", Resource: "nodeovercommitconfigs"}
+var nodeovercommitconfigsResource = schema.GroupVersionResource{Group: "overcommit.halo.io", Version: "v1alpha1", Resource: "nodeovercommitconfigs"}
 
-var nodeovercommitconfigsKind = schema.GroupVersionKind{Group: "overcommit.katalyst.kubewharf.io", Version: "v1alpha1", Kind: "NodeOvercommitConfig"}
+var nodeovercommitconfigsKind = schema.GroupVersionKind{Group: "overcommit.halo.io", Version: "v1alpha1", Kind: "NodeOvercommitConfig"}
 
 // Get takes name of the nodeOvercommitConfig, and returns the corresponding nodeOvercommitConfig object, and an error if there is any.
 func (c *FakeNodeOvercommitConfigs) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.NodeOvercommitConfig, err error) {

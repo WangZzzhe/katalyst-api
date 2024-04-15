@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 // +k8s:deepcopy-gen=package
-// +groupName=overcommit.katalyst.kubewharf.io
+// +groupName=overcommit.halo.io
 // +k8s:openapi-gen=true
 
 // Package v1alpha1 provides alpha API for Katalyst Overcommit API objects.

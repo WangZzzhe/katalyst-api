@@ -36,9 +36,9 @@ type FakePortraits struct {
 	ns   string
 }
 
-var portraitsResource = schema.GroupVersionResource{Group: "resourceportrait.katalyst.kubewharf.io", Version: "v1alpha1", Resource: "portraits"}
+var portraitsResource = schema.GroupVersionResource{Group: "resourceportrait.halo.io", Version: "v1alpha1", Resource: "portraits"}
 
-var portraitsKind = schema.GroupVersionKind{Group: "resourceportrait.katalyst.kubewharf.io", Version: "v1alpha1", Kind: "Portrait"}
+var portraitsKind = schema.GroupVersionKind{Group: "resourceportrait.halo.io", Version: "v1alpha1", Kind: "Portrait"}
 
 // Get takes name of the portrait, and returns the corresponding portrait object, and an error if there is any.
 func (c *FakePortraits) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.Portrait, err error) {
