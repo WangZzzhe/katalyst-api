@@ -35,9 +35,9 @@ type FakeCustomNodeResources struct {
 	Fake *FakeNodeV1alpha1
 }
 
-var customnoderesourcesResource = schema.GroupVersionResource{Group: "node.katalyst.kubewharf.io", Version: "v1alpha1", Resource: "customnoderesources"}
+var customnoderesourcesResource = schema.GroupVersionResource{Group: "node.halo.io", Version: "v1alpha1", Resource: "customnoderesources"}
 
-var customnoderesourcesKind = schema.GroupVersionKind{Group: "node.katalyst.kubewharf.io", Version: "v1alpha1", Kind: "CustomNodeResource"}
+var customnoderesourcesKind = schema.GroupVersionKind{Group: "node.halo.io", Version: "v1alpha1", Kind: "CustomNodeResource"}
 
 // Get takes name of the customNodeResource, and returns the corresponding customNodeResource object, and an error if there is any.
 func (c *FakeCustomNodeResources) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.CustomNodeResource, err error) {
