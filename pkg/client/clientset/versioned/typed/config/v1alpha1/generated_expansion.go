@@ -18,6 +18,8 @@ limitations under the License.
 
 package v1alpha1
 
+type AdminQoSConfigurationExpansion interface{}
+
 type CustomNodeConfigExpansion interface{}
 
 type KatalystCustomConfigExpansion interface{}

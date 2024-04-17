@@ -28,6 +28,10 @@ type FakeConfigV1alpha1 struct {
 	*testing.Fake
 }
 
+func (c *FakeConfigV1alpha1) AdminQoSConfigurations(namespace string) v1alpha1.AdminQoSConfigurationInterface {
+	return &FakeAdminQoSConfigurations{c, namespace}
+}
+
 func (c *FakeConfigV1alpha1) CustomNodeConfigs() v1alpha1.CustomNodeConfigInterface {
 	return &FakeCustomNodeConfigs{c}
 }

@@ -71,6 +71,8 @@ func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Autoscaling().V1alpha2().KatalystVerticalPodAutoscalers().Informer()}, nil
 
 		// Group=config.katalyst.kubewharf.io, Version=v1alpha1
+	case configv1alpha1.SchemeGroupVersion.WithResource("adminqosconfigurations"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Config().V1alpha1().AdminQoSConfigurations().Informer()}, nil
 	case configv1alpha1.SchemeGroupVersion.WithResource("customnodeconfigs"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Config().V1alpha1().CustomNodeConfigs().Informer()}, nil
 	case configv1alpha1.SchemeGroupVersion.WithResource("katalystcustomconfigs"):
