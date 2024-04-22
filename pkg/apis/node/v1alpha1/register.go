@@ -52,6 +52,8 @@ func addKnownTypes(scheme *runtime.Scheme) error {
 	scheme.AddKnownTypes(SchemeGroupVersion,
 		&CustomNodeResource{},
 		&CustomNodeResourceList{},
+		&NodeMonitor{},
+		&NodeMonitorList{},
 	)
 
 	v1.AddToGroupVersion(scheme, SchemeGroupVersion)
