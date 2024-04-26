@@ -33,7 +33,7 @@ type ConfigV1alpha1Interface interface {
 	KatalystCustomConfigsGetter
 }
 
-// ConfigV1alpha1Client is used to interact with features provided by the config.katalyst.kubewharf.io group.
+// ConfigV1alpha1Client is used to interact with features provided by the config.halo.io group.
 type ConfigV1alpha1Client struct {
 	restClient rest.Interface
 }

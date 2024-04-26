@@ -36,9 +36,9 @@ type FakeKatalystCustomConfigs struct {
 	ns   string
 }
 
-var katalystcustomconfigsResource = schema.GroupVersionResource{Group: "config.katalyst.kubewharf.io", Version: "v1alpha1", Resource: "katalystcustomconfigs"}
+var katalystcustomconfigsResource = schema.GroupVersionResource{Group: "config.halo.io", Version: "v1alpha1", Resource: "katalystcustomconfigs"}
 
-var katalystcustomconfigsKind = schema.GroupVersionKind{Group: "config.katalyst.kubewharf.io", Version: "v1alpha1", Kind: "KatalystCustomConfig"}
+var katalystcustomconfigsKind = schema.GroupVersionKind{Group: "config.halo.io", Version: "v1alpha1", Kind: "KatalystCustomConfig"}
 
 // Get takes name of the katalystCustomConfig, and returns the corresponding katalystCustomConfig object, and an error if there is any.
 func (c *FakeKatalystCustomConfigs) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.KatalystCustomConfig, err error) {

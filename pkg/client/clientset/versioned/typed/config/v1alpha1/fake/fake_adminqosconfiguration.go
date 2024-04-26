@@ -36,9 +36,9 @@ type FakeAdminQoSConfigurations struct {
 	ns   string
 }
 
-var adminqosconfigurationsResource = schema.GroupVersionResource{Group: "config.katalyst.kubewharf.io", Version: "v1alpha1", Resource: "adminqosconfigurations"}
+var adminqosconfigurationsResource = schema.GroupVersionResource{Group: "config.halo.io", Version: "v1alpha1", Resource: "adminqosconfigurations"}
 
-var adminqosconfigurationsKind = schema.GroupVersionKind{Group: "config.katalyst.kubewharf.io", Version: "v1alpha1", Kind: "AdminQoSConfiguration"}
+var adminqosconfigurationsKind = schema.GroupVersionKind{Group: "config.halo.io", Version: "v1alpha1", Kind: "AdminQoSConfiguration"}
 
 // Get takes name of the adminQoSConfiguration, and returns the corresponding adminQoSConfiguration object, and an error if there is any.
 func (c *FakeAdminQoSConfigurations) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.AdminQoSConfiguration, err error) {

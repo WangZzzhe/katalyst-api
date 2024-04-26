@@ -18,28 +18,28 @@ package consts
 
 // const variables for node annotations about overcommit ratio
 const (
-	NodeAnnotationCPUOvercommitRatioKey            = "katalyst.kubewharf.io/cpu_overcommit_ratio"
-	NodeAnnotationMemoryOvercommitRatioKey         = "katalyst.kubewharf.io/memory_overcommit_ratio"
-	NodeAnnotationRealtimeCPUOvercommitRatioKey    = "katalyst.kubewharf.io/realtime_cpu_overcommit_ratio"
-	NodeAnnotationRealtimeMemoryOvercommitRatioKey = "katalyst.kubewharf.io/realtime_memory_overcommit_ratio"
+	NodeAnnotationCPUOvercommitRatioKey            = "halo.io/cpu_overcommit_ratio"
+	NodeAnnotationMemoryOvercommitRatioKey         = "halo.io/memory_overcommit_ratio"
+	NodeAnnotationRealtimeCPUOvercommitRatioKey    = "halo.io/realtime_cpu_overcommit_ratio"
+	NodeAnnotationRealtimeMemoryOvercommitRatioKey = "halo.io/realtime_memory_overcommit_ratio"
 
-	NodeAnnotationPredictCPUOvercommitRatioKey    = "katalyst.kubewharf.io/predict_cpu_overcommit_ratio"
-	NodeAnnotationPredictMemoryOvercommitRatioKey = "katalyst.kubewharf.io/predict_memory_overcommit_ratio"
+	NodeAnnotationPredictCPUOvercommitRatioKey    = "halo.io/predict_cpu_overcommit_ratio"
+	NodeAnnotationPredictMemoryOvercommitRatioKey = "halo.io/predict_memory_overcommit_ratio"
 
-	NodeAnnotationOriginalCapacityCPUKey       = "katalyst.kubewharf.io/original_capacity_cpu"
-	NodeAnnotationOriginalCapacityMemoryKey    = "katalyst.kubewharf.io/original_capacity_memory"
-	NodeAnnotationOriginalAllocatableCPUKey    = "katalyst.kubewharf.io/original_allocatable_cpu"
-	NodeAnnotationOriginalAllocatableMemoryKey = "katalyst.kubewharf.io/original_allocatable_memory"
+	NodeAnnotationOriginalCapacityCPUKey       = "halo.io/original_capacity_cpu"
+	NodeAnnotationOriginalCapacityMemoryKey    = "halo.io/original_capacity_memory"
+	NodeAnnotationOriginalAllocatableCPUKey    = "halo.io/original_allocatable_cpu"
+	NodeAnnotationOriginalAllocatableMemoryKey = "halo.io/original_allocatable_memory"
 
-	NodeAnnotationOvercommitCapacityCPUKey       = "katalyst.kubewharf.io/overcommit_capacity_cpu"
-	NodeAnnotationOvercommitAllocatableCPUKey    = "katalyst.kubewharf.io/overcommit_allocatable_cpu"
-	NodeAnnotationOvercommitCapacityMemoryKey    = "katalyst.kubewharf.io/overcommit_capacity_memory"
-	NodeAnnotationOvercommitAllocatableMemoryKey = "katalyst.kubewharf.io/overcommit_allocatable_memory"
+	NodeAnnotationOvercommitCapacityCPUKey       = "halo.io/overcommit_capacity_cpu"
+	NodeAnnotationOvercommitAllocatableCPUKey    = "halo.io/overcommit_allocatable_cpu"
+	NodeAnnotationOvercommitCapacityMemoryKey    = "halo.io/overcommit_capacity_memory"
+	NodeAnnotationOvercommitAllocatableMemoryKey = "halo.io/overcommit_allocatable_memory"
 )
 
 // const variables for matching up with node labels about overcommit
 const (
-	NodeOvercommitSelectorKey = "katalyst.kubewharf.io/overcommit_node_pool"
+	NodeOvercommitSelectorKey = "halo.io/overcommit_node_pool"
 
 	DefaultNodeCPUOvercommitRatio    = "1"
 	DefaultNodeMemoryOvercommitRatio = "1"
@@ -50,10 +50,10 @@ type KCNRAnnotationMemoryManagerPolicy string
 
 const (
 	// KCNRAnnotationGuaranteedCPUs sum of pod guaranteed cpus in node
-	KCNRAnnotationGuaranteedCPUs = "katalyst.kubewharf.io/guaranteed_cpus"
+	KCNRAnnotationGuaranteedCPUs = "halo.io/guaranteed_cpus"
 
-	KCNRAnnotationCPUManager    = "katalyst.kubewharf.io/overcommit_cpu_manager"
-	KCNRAnnotationMemoryManager = "katalyst.kubewharf.io/overcommit_memory_manager"
+	KCNRAnnotationCPUManager    = "halo.io/overcommit_cpu_manager"
+	KCNRAnnotationMemoryManager = "halo.io/overcommit_memory_manager"
 
 	CPUManagerOff        KCNRAnnotationCPUManagerPolicy = "none"
 	CPUManagerPolicyNone KCNRAnnotationCPUManagerPolicy = "none"

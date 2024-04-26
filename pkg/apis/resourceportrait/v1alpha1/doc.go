@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 // +k8s:deepcopy-gen=package
-// +groupName=resourceportrait.katalyst.kubewharf.io
+// +groupName=resourceportrait.halo.io
 // +k8s:openapi-gen=true
 
 // Package v1alpha1 provides alpha API for Katalyst Workload API objects.

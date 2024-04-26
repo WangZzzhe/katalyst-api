@@ -18,7 +18,7 @@ const (
 	PodAnnotationLoadAwareEnableTrue  = "true"
 	PodAnnotationLoadAwareEnableFalse = "false"
 
-	DefaultPodAnnotationEnableLoadAware = "katalyst.kubewharf.io/enable_load_aware"
+	DefaultPodAnnotationEnableLoadAware = "halo.io/enable_load_aware"
 )
 
 const (

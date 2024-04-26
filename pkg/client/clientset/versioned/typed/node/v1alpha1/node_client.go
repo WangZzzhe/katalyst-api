@@ -32,7 +32,7 @@ type NodeV1alpha1Interface interface {
 	NodeMonitorsGetter
 }
 
-// NodeV1alpha1Client is used to interact with features provided by the node.katalyst.kubewharf.io group.
+// NodeV1alpha1Client is used to interact with features provided by the node.halo.io group.
 type NodeV1alpha1Client struct {
 	restClient rest.Interface
 }

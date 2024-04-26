@@ -15,7 +15,7 @@ limitations under the License.
 */
 
 // +k8s:deepcopy-gen=package
-// +groupName=node.katalyst.kubewharf.io
+// +groupName=node.halo.io
 // +k8s:openapi-gen=true
 
 // Package v1alpha1 provides alpha API for Katalyst Node API objects.

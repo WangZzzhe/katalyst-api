@@ -70,7 +70,7 @@ func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource
 	case v1alpha2.SchemeGroupVersion.WithResource("katalystverticalpodautoscalers"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Autoscaling().V1alpha2().KatalystVerticalPodAutoscalers().Informer()}, nil
 
-		// Group=config.katalyst.kubewharf.io, Version=v1alpha1
+		// Group=config.halo.io, Version=v1alpha1
 	case configv1alpha1.SchemeGroupVersion.WithResource("adminqosconfigurations"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Config().V1alpha1().AdminQoSConfigurations().Informer()}, nil
 	case configv1alpha1.SchemeGroupVersion.WithResource("customnodeconfigs"):
@@ -78,13 +78,13 @@ func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource
 	case configv1alpha1.SchemeGroupVersion.WithResource("katalystcustomconfigs"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Config().V1alpha1().KatalystCustomConfigs().Informer()}, nil
 
-		// Group=node.katalyst.kubewharf.io, Version=v1alpha1
+		// Group=node.halo.io, Version=v1alpha1
 	case nodev1alpha1.SchemeGroupVersion.WithResource("customnoderesources"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Node().V1alpha1().CustomNodeResources().Informer()}, nil
 	case nodev1alpha1.SchemeGroupVersion.WithResource("nodemonitors"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Node().V1alpha1().NodeMonitors().Informer()}, nil
 
-		// Group=overcommit.katalyst.kubewharf.io, Version=v1alpha1
+		// Group=overcommit.halo.io, Version=v1alpha1
 	case overcommitv1alpha1.SchemeGroupVersion.WithResource("nodeovercommitconfigs"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Overcommit().V1alpha1().NodeOvercommitConfigs().Informer()}, nil
 
@@ -92,7 +92,7 @@ func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource
 	case recommendationv1alpha1.SchemeGroupVersion.WithResource("resourcerecommends"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Recommendation().V1alpha1().ResourceRecommends().Informer()}, nil
 
-		// Group=resourceportrait.katalyst.kubewharf.io, Version=v1alpha1
+		// Group=resourceportrait.halo.io, Version=v1alpha1
 	case resourceportraitv1alpha1.SchemeGroupVersion.WithResource("portraits"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Resourceportrait().V1alpha1().Portraits().Informer()}, nil
 	case resourceportraitv1alpha1.SchemeGroupVersion.WithResource("resourceportraits"):

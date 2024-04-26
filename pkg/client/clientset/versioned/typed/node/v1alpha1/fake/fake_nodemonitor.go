@@ -35,9 +35,9 @@ type FakeNodeMonitors struct {
 	Fake *FakeNodeV1alpha1
 }
 
-var nodemonitorsResource = schema.GroupVersionResource{Group: "node.katalyst.kubewharf.io", Version: "v1alpha1", Resource: "nodemonitors"}
+var nodemonitorsResource = schema.GroupVersionResource{Group: "node.halo.io", Version: "v1alpha1", Resource: "nodemonitors"}
 
-var nodemonitorsKind = schema.GroupVersionKind{Group: "node.katalyst.kubewharf.io", Version: "v1alpha1", Kind: "NodeMonitor"}
+var nodemonitorsKind = schema.GroupVersionKind{Group: "node.halo.io", Version: "v1alpha1", Kind: "NodeMonitor"}
 
 // Get takes name of the nodeMonitor, and returns the corresponding nodeMonitor object, and an error if there is any.
 func (c *FakeNodeMonitors) Get(ctx context.Context, name string, options v1.GetOptions) (result *v1alpha1.NodeMonitor, err error) {
