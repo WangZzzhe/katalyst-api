@@ -34,8 +34,6 @@ import (
 	fakerecommendationv1alpha1 "github.com/kubewharf/katalyst-api/pkg/client/clientset/versioned/typed/recommendation/v1alpha1/fake"
 	resourceportraitv1alpha1 "github.com/kubewharf/katalyst-api/pkg/client/clientset/versioned/typed/resourceportrait/v1alpha1"
 	fakeresourceportraitv1alpha1 "github.com/kubewharf/katalyst-api/pkg/client/clientset/versioned/typed/resourceportrait/v1alpha1/fake"
-	tidev1alpha1 "github.com/kubewharf/katalyst-api/pkg/client/clientset/versioned/typed/tide/v1alpha1"
-	faketidev1alpha1 "github.com/kubewharf/katalyst-api/pkg/client/clientset/versioned/typed/tide/v1alpha1/fake"
 	workloadv1alpha1 "github.com/kubewharf/katalyst-api/pkg/client/clientset/versioned/typed/workload/v1alpha1"
 	fakeworkloadv1alpha1 "github.com/kubewharf/katalyst-api/pkg/client/clientset/versioned/typed/workload/v1alpha1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
@@ -90,10 +88,7 @@ func (c *Clientset) Tracker() testing.ObjectTracker {
 	return c.tracker
 }
 
-var (
-	_ clientset.Interface = &Clientset{}
-	_ testing.FakeClient  = &Clientset{}
-)
+var _ clientset.Interface = &Clientset{}
 
 // AutoscalingV1alpha1 retrieves the AutoscalingV1alpha1Client
 func (c *Clientset) AutoscalingV1alpha1() autoscalingv1alpha1.AutoscalingV1alpha1Interface {
@@ -128,11 +123,6 @@ func (c *Clientset) RecommendationV1alpha1() recommendationv1alpha1.Recommendati
 // ResourceportraitV1alpha1 retrieves the ResourceportraitV1alpha1Client
 func (c *Clientset) ResourceportraitV1alpha1() resourceportraitv1alpha1.ResourceportraitV1alpha1Interface {
 	return &fakeresourceportraitv1alpha1.FakeResourceportraitV1alpha1{Fake: &c.Fake}
-}
-
-// TideV1alpha1 retrieves the TideV1alpha1Client
-func (c *Clientset) TideV1alpha1() tidev1alpha1.TideV1alpha1Interface {
-	return &faketidev1alpha1.FakeTideV1alpha1{Fake: &c.Fake}
 }
 
 // WorkloadV1alpha1 retrieves the WorkloadV1alpha1Client
