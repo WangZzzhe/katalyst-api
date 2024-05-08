@@ -96,6 +96,7 @@ type IndicatorType string
 type LoadAwareArgs struct {
 	metav1.TypeMeta
 
+	EnablePortrait               bool    `json:"enablePortrait,omitempty"`
 	PodAnnotationLoadAwareEnable *string `json:"podAnnotationLoadAwareEnable,omitempty"`
 	// FilterExpiredNodeMonitor indicates whether to filter nodes where  fails to update NodeMonitor.
 	FilterExpiredNodeMonitor *bool `json:"filterExpiredNodeMonitor,omitempty"`
@@ -108,6 +109,8 @@ type LoadAwareArgs struct {
 	// ResourceToThresholdMap contains resource name and threshold. Node can not be scheduled
 	// if usage of it is more than threshold.
 	ResourceToThresholdMap map[corev1.ResourceName]int64 `json:"resourceToThresholdMap,omitempty"`
+	// ResourceToTargetMap contains resource name and node usage target which are used in loadAware score
+	ResourceToTargetMap map[corev1.ResourceName]int64 `json:"resourceToTargetMap,omitempty"`
 	// ResourceToScalingFactorMap contains resource name and scaling factor, which are used to estimate pod usage
 	// if usage of pod is not exists in node monitor.
 	ResourceToScalingFactorMap map[corev1.ResourceName]int64 `json:"resourceToScalingFactorMap,omitempty"`

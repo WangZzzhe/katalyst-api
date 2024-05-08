@@ -48,6 +48,11 @@ var (
 		v1.ResourceMemory: 95, // 95%
 	}
 
+	defaultResourceToTargetMap = map[v1.ResourceName]int64{
+		v1.ResourceCPU:    50,
+		v1.ResourceMemory: 70,
+	}
+
 	defaultResourceToScalingFactorMap = map[v1.ResourceName]int64{
 		v1.ResourceCPU:    85, // 85%
 		v1.ResourceMemory: 70, // 70%
@@ -144,6 +149,9 @@ func SetDefaults_LoadAwareArgs(obj *LoadAwareArgs) {
 	}
 	if len(obj.ResourceToThresholdMap) == 0 {
 		obj.ResourceToThresholdMap = defaultResourceToThresholdMap
+	}
+	if len(obj.ResourceToTargetMap) == 0 {
+		obj.ResourceToTargetMap = defaultResourceToTargetMap
 	}
 	if len(obj.ResourceToScalingFactorMap) == 0 {
 		obj.ResourceToScalingFactorMap = defaultResourceToScalingFactorMap

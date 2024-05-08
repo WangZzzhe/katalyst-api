@@ -60,6 +60,13 @@ func (in *LoadAwareArgs) DeepCopyInto(out *LoadAwareArgs) {
 			(*out)[key] = val
 		}
 	}
+	if in.ResourceToTargetMap != nil {
+		in, out := &in.ResourceToTargetMap, &out.ResourceToTargetMap
+		*out = make(map[v1.ResourceName]int64, len(*in))
+		for key, val := range *in {
+			(*out)[key] = val
+		}
+	}
 	if in.ResourceToScalingFactorMap != nil {
 		in, out := &in.ResourceToScalingFactorMap, &out.ResourceToScalingFactorMap
 		*out = make(map[v1.ResourceName]int64, len(*in))

@@ -169,6 +169,9 @@ func ValidateLoadAwareSchedulingArgs(args *config.LoadAwareArgs) error {
 	if err := validateResourceThresholds(args.ResourceToThresholdMap); err != nil {
 		return fmt.Errorf("UsageThresholds err, %v", err)
 	}
+	if err := validateResourceTargets(args.ResourceToTargetMap); err != nil {
+		return fmt.Errorf("UsageTarget err, %v", err)
+	}
 	if err := validateEstimatedResourceThresholds(args.ResourceToScalingFactorMap); err != nil {
 		return fmt.Errorf("EstimatedScalingFactors err, %v", err)
 	}
@@ -201,6 +204,19 @@ func validateResourceThresholds(thresholds map[v1.ResourceName]int64) error {
 		}
 		if thresholdPercent > 100 {
 			return fmt.Errorf("resource Threshold of %v should be less than 100, got %v", resourceName, thresholdPercent)
+		}
+	}
+	return nil
+}
+
+func validateResourceTargets(targets map[v1.ResourceName]int64) error {
+	for resourceName, target := range targets {
+		if target < 0 {
+			return fmt.Errorf("resource target of %v should be a positive value, got %v", resourceName, target)
+		}
+
+		if target > 100 {
+			return fmt.Errorf("resource target of %v should be less than 100, got %v", resourceName, target)
 		}
 	}
 	return nil

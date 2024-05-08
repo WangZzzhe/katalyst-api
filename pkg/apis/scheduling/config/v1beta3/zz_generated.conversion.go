@@ -94,11 +94,13 @@ func RegisterConversions(s *runtime.Scheme) error {
 }
 
 func autoConvert_v1beta3_LoadAwareArgs_To_config_LoadAwareArgs(in *LoadAwareArgs, out *config.LoadAwareArgs, s conversion.Scope) error {
+	out.EnablePortrait = in.EnablePortrait
 	out.PodAnnotationLoadAwareEnable = (*string)(unsafe.Pointer(in.PodAnnotationLoadAwareEnable))
 	out.FilterExpiredNodeMonitor = (*bool)(unsafe.Pointer(in.FilterExpiredNodeMonitor))
 	out.NodeMonitorExpiredSeconds = (*int64)(unsafe.Pointer(in.NodeMonitorExpiredSeconds))
 	out.ResourceToWeightMap = *(*map[v1.ResourceName]int64)(unsafe.Pointer(&in.ResourceToWeightMap))
 	out.ResourceToThresholdMap = *(*map[v1.ResourceName]int64)(unsafe.Pointer(&in.ResourceToThresholdMap))
+	out.ResourceToTargetMap = *(*map[v1.ResourceName]int64)(unsafe.Pointer(&in.ResourceToTargetMap))
 	out.ResourceToScalingFactorMap = *(*map[v1.ResourceName]int64)(unsafe.Pointer(&in.ResourceToScalingFactorMap))
 	out.CalculateIndicatorWeight = *(*map[config.IndicatorType]int64)(unsafe.Pointer(&in.CalculateIndicatorWeight))
 	out.KubeConfigPath = in.KubeConfigPath
@@ -111,11 +113,13 @@ func Convert_v1beta3_LoadAwareArgs_To_config_LoadAwareArgs(in *LoadAwareArgs, ou
 }
 
 func autoConvert_config_LoadAwareArgs_To_v1beta3_LoadAwareArgs(in *config.LoadAwareArgs, out *LoadAwareArgs, s conversion.Scope) error {
+	out.EnablePortrait = in.EnablePortrait
 	out.PodAnnotationLoadAwareEnable = (*string)(unsafe.Pointer(in.PodAnnotationLoadAwareEnable))
 	out.FilterExpiredNodeMonitor = (*bool)(unsafe.Pointer(in.FilterExpiredNodeMonitor))
 	out.NodeMonitorExpiredSeconds = (*int64)(unsafe.Pointer(in.NodeMonitorExpiredSeconds))
 	out.ResourceToWeightMap = *(*map[v1.ResourceName]int64)(unsafe.Pointer(&in.ResourceToWeightMap))
 	out.ResourceToThresholdMap = *(*map[v1.ResourceName]int64)(unsafe.Pointer(&in.ResourceToThresholdMap))
+	out.ResourceToTargetMap = *(*map[v1.ResourceName]int64)(unsafe.Pointer(&in.ResourceToTargetMap))
 	out.ResourceToScalingFactorMap = *(*map[v1.ResourceName]int64)(unsafe.Pointer(&in.ResourceToScalingFactorMap))
 	out.CalculateIndicatorWeight = *(*map[IndicatorType]int64)(unsafe.Pointer(&in.CalculateIndicatorWeight))
 	out.KubeConfigPath = in.KubeConfigPath
