@@ -105,6 +105,11 @@ type ReclaimedResourceConfig struct {
 	// +optional
 	MinReclaimedResourceForAllocate *v1.ResourceList `json:"minReclaimedResourceForAllocate,omitempty"`
 
+	// MaxNodeUtilizationPercent is the node resource utilization limit for reclaimed resource.
+	// node resources above the utilization will not be allocated to reclaimed pool.
+	// +optional
+	MaxNodeUtilizationPercent map[v1.ResourceName]int64 `json:"maxNodeUtilizationPercent,omitempty"`
+
 	// CPUHeadroomConfig is a configuration for cpu headroom
 	// +optional
 	CPUHeadroomConfig *CPUHeadroomConfig `json:"cpuHeadroomConfig,omitempty"`
@@ -122,7 +127,16 @@ type MemoryHeadroomConfig struct {
 
 type AdvisorConfig struct {
 	// +optional
+	CPUAdvisorConfig *CPUAdvisorConfig `json:"cpuAdvisorConfig,omitempty"`
+	// +optional
 	MemoryAdvisorConfig *MemoryAdvisorConfig `json:"memoryAdvisorConfig,omitempty"`
+}
+
+type CPUAdvisorConfig struct {
+	// AllowSharedCoresOverlapReclaimedCores is a flag, when enabled,
+	// we will rely on kernel features to ensure that shared_cores pods can suppress and preempt reclaimed_cores pods.
+	// +optional
+	AllowSharedCoresOverlapReclaimedCores *bool `json:"allowSharedCoresOverlapReclaimedCores,omitempty"`
 }
 
 type MemoryAdvisorConfig struct {
