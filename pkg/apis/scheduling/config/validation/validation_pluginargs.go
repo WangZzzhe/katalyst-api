@@ -121,10 +121,10 @@ func validateFunctionShape(shape []kubeschedulerconfig.UtilizationShapePoint, pa
 }
 
 var validScoringStrategy = sets.NewString(
-	string(kubeschedulerconfig.MostAllocated),
-	string(kubeschedulerconfig.LeastAllocated),
-	string(consts.BalancedAllocation),
-	string(consts.LeastNUMANodes),
+	string(config.MostAllocated),
+	string(config.LeastAllocated),
+	string(config.BalancedAllocation),
+	string(config.LeastNUMANodes),
 )
 
 // ValidateNodeResourceTopologyMatchArgs ...
@@ -143,7 +143,7 @@ func ValidateNodeResourceTopologyMatchArgs(path *field.Path, args *config.NodeRe
 	return allErrs.ToAggregate()
 }
 
-func validateScoringStrategyType(scoringStrategy kubeschedulerconfig.ScoringStrategyType, path *field.Path) *field.Error {
+func validateScoringStrategyType(scoringStrategy config.ScoringStrategyType, path *field.Path) *field.Error {
 	if !validScoringStrategy.Has(string(scoringStrategy)) {
 		return field.Invalid(path, scoringStrategy, "invalid ScoringStrategyType")
 	}

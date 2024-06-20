@@ -12,24 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package v1beta3
+package v1beta1
 
 import (
 	"fmt"
+	"github.com/kubewharf/katalyst-api/pkg/apis/scheduling/config"
 	"k8s.io/utils/pointer"
 
 	v1 "k8s.io/api/core/v1"
-	"k8s.io/kube-scheduler/config/v1beta3"
+	"k8s.io/kube-scheduler/config/v1beta1"
 
 	"github.com/kubewharf/katalyst-api/pkg/consts"
 )
 
-var defaultResourceSpec = []v1beta3.ResourceSpec{
+var defaultResourceSpec = []v1beta1.ResourceSpec{
 	{Name: string(v1.ResourceCPU), Weight: 1},
 	{Name: string(v1.ResourceMemory), Weight: 1},
 }
 
-var defaultReclaimedResourceSpec = []v1beta3.ResourceSpec{
+var defaultReclaimedResourceSpec = []v1beta1.ResourceSpec{
 	{Name: fmt.Sprintf("%s", consts.ReclaimedResourceMilliCPU), Weight: 1},
 	{Name: fmt.Sprintf("%s", consts.ReclaimedResourceMemory), Weight: 1},
 }
@@ -68,7 +69,7 @@ var (
 func SetDefaults_QoSAwareNodeResourcesFitArgs(obj *QoSAwareNodeResourcesFitArgs) {
 	if obj.ScoringStrategy == nil {
 		obj.ScoringStrategy = &ScoringStrategy{
-			Type:               v1beta3.LeastAllocated,
+			Type:               config.LeastAllocated,
 			Resources:          defaultResourceSpec,
 			ReclaimedResources: defaultReclaimedResourceSpec,
 		}
@@ -120,7 +121,7 @@ func SetDefaults_NodeResourceTopologyArgs(obj *NodeResourceTopologyArgs) {
 
 	if obj.ScoringStrategy == nil {
 		obj.ScoringStrategy = &ScoringStrategy{
-			Type:      v1beta3.LeastAllocated,
+			Type:      config.LeastAllocated,
 			Resources: defaultResourceSpec,
 		}
 	}

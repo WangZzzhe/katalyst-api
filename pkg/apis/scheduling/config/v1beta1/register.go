@@ -12,19 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package v1beta3
+package v1beta1
 
 import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
-	schedschemev1beta3 "k8s.io/kube-scheduler/config/v1beta3"
+	schedschemev1beta1 "k8s.io/kube-scheduler/config/v1beta1"
 )
 
 // SchemeGroupVersion is group version used to register these objects
-var SchemeGroupVersion = schema.GroupVersion{Group: schedschemev1beta3.GroupName, Version: "v1beta3"}
+var SchemeGroupVersion = schema.GroupVersion{Group: schedschemev1beta1.GroupName, Version: "v1beta1"}
 
 var (
-	localSchemeBuilder = &schedschemev1beta3.SchemeBuilder
+	localSchemeBuilder = &schedschemev1beta1.SchemeBuilder
 	// AddToScheme is a global function that registers this API group & version to a scheme
 	AddToScheme = localSchemeBuilder.AddToScheme
 )

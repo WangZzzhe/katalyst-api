@@ -31,7 +31,6 @@ import (
 	overcommit "github.com/kubewharf/katalyst-api/pkg/client/informers/externalversions/overcommit"
 	recommendation "github.com/kubewharf/katalyst-api/pkg/client/informers/externalversions/recommendation"
 	resourceportrait "github.com/kubewharf/katalyst-api/pkg/client/informers/externalversions/resourceportrait"
-	tide "github.com/kubewharf/katalyst-api/pkg/client/informers/externalversions/tide"
 	workload "github.com/kubewharf/katalyst-api/pkg/client/informers/externalversions/workload"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
@@ -185,7 +184,6 @@ type SharedInformerFactory interface {
 	Overcommit() overcommit.Interface
 	Recommendation() recommendation.Interface
 	Resourceportrait() resourceportrait.Interface
-	Tide() tide.Interface
 	Workload() workload.Interface
 }
 
@@ -211,10 +209,6 @@ func (f *sharedInformerFactory) Recommendation() recommendation.Interface {
 
 func (f *sharedInformerFactory) Resourceportrait() resourceportrait.Interface {
 	return resourceportrait.New(f, f.namespace, f.tweakListOptions)
-}
-
-func (f *sharedInformerFactory) Tide() tide.Interface {
-	return tide.New(f, f.namespace, f.tweakListOptions)
 }
 
 func (f *sharedInformerFactory) Workload() workload.Interface {

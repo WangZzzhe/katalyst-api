@@ -217,12 +217,12 @@ func (in *ScoringStrategy) DeepCopyInto(out *ScoringStrategy) {
 	}
 	if in.RequestedToCapacityRatio != nil {
 		in, out := &in.RequestedToCapacityRatio, &out.RequestedToCapacityRatio
-		*out = new(apisconfig.RequestedToCapacityRatioParam)
+		*out = new(apisconfig.RequestedToCapacityRatioArgs)
 		(*in).DeepCopyInto(*out)
 	}
 	if in.ReclaimedRequestedToCapacityRatio != nil {
 		in, out := &in.ReclaimedRequestedToCapacityRatio, &out.ReclaimedRequestedToCapacityRatio
-		*out = new(apisconfig.RequestedToCapacityRatioParam)
+		*out = new(apisconfig.RequestedToCapacityRatioArgs)
 		(*in).DeepCopyInto(*out)
 	}
 	return
