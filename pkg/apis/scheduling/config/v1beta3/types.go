@@ -97,12 +97,12 @@ type LoadAwareArgs struct {
 	metav1.TypeMeta
 
 	PodAnnotationLoadAwareEnable *string `json:"podAnnotationLoadAwareEnable,omitempty"`
-	// FilterExpiredNodeMonitor indicates whether to filter nodes where  fails to update NodeMonitor.
-	FilterExpiredNodeMonitor *bool `json:"filterExpiredNodeMonitor,omitempty"`
-	// NodeMonitorExpiredSeconds indicates the NodeMonitor expiration in seconds.
+	// FilterExpiredNodeMetrics indicates whether to filter nodes where  fails to update NPD.
+	FilterExpiredNodeMetrics *bool `json:"filterExpiredNodeMetrics,omitempty"`
+	// NodeMetricsExpiredSeconds indicates the NodeMetrics in NPD expiration in seconds.
 	// When NodeMetrics expired, the node is considered abnormal.
 	// default 5 minute
-	NodeMonitorExpiredSeconds *int64 `json:"NodeMonitorExpiredSeconds,omitempty"`
+	NodeMetricsExpiredSeconds *int64 `json:"NodeMetricsExpiredSeconds,omitempty"`
 	// ResourceToWeightMap contains resource name and weight.
 	ResourceToWeightMap map[corev1.ResourceName]int64 `json:"resourceToWeightMap,omitempty"`
 	// ResourceToThresholdMap contains resource name and threshold. Node can not be scheduled

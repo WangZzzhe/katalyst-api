@@ -36,13 +36,13 @@ func (in *LoadAwareArgs) DeepCopyInto(out *LoadAwareArgs) {
 		*out = new(string)
 		**out = **in
 	}
-	if in.FilterExpiredNodeMonitor != nil {
-		in, out := &in.FilterExpiredNodeMonitor, &out.FilterExpiredNodeMonitor
+	if in.FilterExpiredNodeMetrics != nil {
+		in, out := &in.FilterExpiredNodeMetrics, &out.FilterExpiredNodeMetrics
 		*out = new(bool)
 		**out = **in
 	}
-	if in.NodeMonitorExpiredSeconds != nil {
-		in, out := &in.NodeMonitorExpiredSeconds, &out.NodeMonitorExpiredSeconds
+	if in.NodeMetricsExpiredSeconds != nil {
+		in, out := &in.NodeMetricsExpiredSeconds, &out.NodeMetricsExpiredSeconds
 		*out = new(int64)
 		**out = **in
 	}

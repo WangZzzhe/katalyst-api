@@ -160,7 +160,7 @@ func validateResourcePolicy(resourcePolicy consts.ResourcePluginPolicyName, path
 
 // ValidateLoadAwareSchedulingArgs validates that LoadAwareArgs are correct.
 func ValidateLoadAwareSchedulingArgs(args *config.LoadAwareArgs) error {
-	if args.NodeMonitorExpiredSeconds != nil && *args.NodeMonitorExpiredSeconds <= 0 {
+	if args.NodeMetricsExpiredSeconds != nil && *args.NodeMetricsExpiredSeconds <= 0 {
 		return fmt.Errorf("NodeMonitorExpiredSeconds err, NodeMonitorExpiredSeconds should be a positive value")
 	}
 	if err := validateResourceWeights(args.ResourceToWeightMap); err != nil {

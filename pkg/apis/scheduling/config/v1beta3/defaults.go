@@ -133,11 +133,11 @@ func SetDefaults_NodeResourceTopologyArgs(obj *NodeResourceTopologyArgs) {
 }
 
 func SetDefaults_LoadAwareArgs(obj *LoadAwareArgs) {
-	if obj.FilterExpiredNodeMonitor == nil {
-		obj.FilterExpiredNodeMonitor = pointer.BoolPtr(true)
+	if obj.FilterExpiredNodeMetrics == nil {
+		obj.FilterExpiredNodeMetrics = pointer.BoolPtr(true)
 	}
-	if obj.NodeMonitorExpiredSeconds == nil {
-		obj.NodeMonitorExpiredSeconds = pointer.Int64Ptr(defaultNodeMonitorExpiredSeconds)
+	if obj.NodeMetricsExpiredSeconds == nil {
+		obj.NodeMetricsExpiredSeconds = pointer.Int64Ptr(defaultNodeMonitorExpiredSeconds)
 	}
 	if len(obj.ResourceToWeightMap) == 0 {
 		obj.ResourceToWeightMap = defaultResourceToWeightMap
