@@ -96,6 +96,7 @@ type IndicatorType string
 type LoadAwareArgs struct {
 	metav1.TypeMeta
 
+	EnablePortrait               *bool   `json:"enablePortrait,omitempty"`
 	PodAnnotationLoadAwareEnable *string `json:"podAnnotationLoadAwareEnable,omitempty"`
 	// FilterExpiredNodeMetrics indicates whether to filter nodes where  fails to update NPD.
 	FilterExpiredNodeMetrics *bool `json:"filterExpiredNodeMetrics,omitempty"`

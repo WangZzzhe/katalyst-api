@@ -31,6 +31,11 @@ import (
 func (in *LoadAwareArgs) DeepCopyInto(out *LoadAwareArgs) {
 	*out = *in
 	out.TypeMeta = in.TypeMeta
+	if in.EnablePortrait != nil {
+		in, out := &in.EnablePortrait, &out.EnablePortrait
+		*out = new(bool)
+		**out = **in
+	}
 	if in.PodAnnotationLoadAwareEnable != nil {
 		in, out := &in.PodAnnotationLoadAwareEnable, &out.PodAnnotationLoadAwareEnable
 		*out = new(string)

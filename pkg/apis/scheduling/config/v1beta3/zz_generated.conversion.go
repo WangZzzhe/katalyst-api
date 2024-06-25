@@ -94,6 +94,7 @@ func RegisterConversions(s *runtime.Scheme) error {
 }
 
 func autoConvert_v1beta3_LoadAwareArgs_To_config_LoadAwareArgs(in *LoadAwareArgs, out *config.LoadAwareArgs, s conversion.Scope) error {
+	out.EnablePortrait = (*bool)(unsafe.Pointer(in.EnablePortrait))
 	out.PodAnnotationLoadAwareEnable = (*string)(unsafe.Pointer(in.PodAnnotationLoadAwareEnable))
 	out.FilterExpiredNodeMetrics = (*bool)(unsafe.Pointer(in.FilterExpiredNodeMetrics))
 	out.NodeMetricsExpiredSeconds = (*int64)(unsafe.Pointer(in.NodeMetricsExpiredSeconds))
@@ -111,6 +112,7 @@ func Convert_v1beta3_LoadAwareArgs_To_config_LoadAwareArgs(in *LoadAwareArgs, ou
 }
 
 func autoConvert_config_LoadAwareArgs_To_v1beta3_LoadAwareArgs(in *config.LoadAwareArgs, out *LoadAwareArgs, s conversion.Scope) error {
+	out.EnablePortrait = (*bool)(unsafe.Pointer(in.EnablePortrait))
 	out.PodAnnotationLoadAwareEnable = (*string)(unsafe.Pointer(in.PodAnnotationLoadAwareEnable))
 	out.FilterExpiredNodeMetrics = (*bool)(unsafe.Pointer(in.FilterExpiredNodeMetrics))
 	out.NodeMetricsExpiredSeconds = (*int64)(unsafe.Pointer(in.NodeMetricsExpiredSeconds))

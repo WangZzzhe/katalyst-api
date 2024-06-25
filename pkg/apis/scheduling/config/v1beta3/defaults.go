@@ -151,4 +151,7 @@ func SetDefaults_LoadAwareArgs(obj *LoadAwareArgs) {
 	if len(obj.CalculateIndicatorWeight) == 0 {
 		obj.CalculateIndicatorWeight = defaultCalculateIndicatorWeight
 	}
+	if obj.EnablePortrait == nil {
+		obj.EnablePortrait = pointer.Bool(false)
+	}
 }
