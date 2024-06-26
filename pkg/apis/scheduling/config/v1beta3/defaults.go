@@ -57,6 +57,10 @@ var (
 		consts.Usage1HourMaxKey: 30, //30%
 		consts.Usage1DayMaxKey:  40, //40%
 	}
+	defaultResourceToTargetMap = map[v1.ResourceName]int64{
+		v1.ResourceCPU:    50,
+		v1.ResourceMemory: 70,
+	}
 )
 
 // SetDefaults_QoSAwareNodeResourcesFitArgs sets the default parameters for QoSAwareNodeResourcesFit plugin.
@@ -150,6 +154,9 @@ func SetDefaults_LoadAwareArgs(obj *LoadAwareArgs) {
 	}
 	if len(obj.CalculateIndicatorWeight) == 0 {
 		obj.CalculateIndicatorWeight = defaultCalculateIndicatorWeight
+	}
+	if len(obj.ResourceToTargetMap) == 0 {
+		obj.ResourceToTargetMap = defaultResourceToTargetMap
 	}
 	if obj.EnablePortrait == nil {
 		obj.EnablePortrait = pointer.Bool(false)

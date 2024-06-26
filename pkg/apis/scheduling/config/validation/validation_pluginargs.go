@@ -180,6 +180,9 @@ func ValidateLoadAwareSchedulingArgs(args *config.LoadAwareArgs) error {
 	if err := validateCalculateIndicatorWeight(args.CalculateIndicatorWeight); err != nil {
 		return fmt.Errorf("CalculateIndicatorWeight err, %v", err)
 	}
+	if err := validateResourceTargets(args.ResourceToTargetMap); err != nil {
+		return fmt.Errorf("UsageTarget err, %v", err)
+	}
 	return nil
 }
 func validateResourceWeights(resources map[v1.ResourceName]int64) error {
@@ -225,6 +228,19 @@ func validateCalculateIndicatorWeight(calculateIndicatorWeight map[config.Indica
 		}
 		if weight > 100 {
 			return fmt.Errorf("calculate Indicator weight of %v should be less than 100, got %v", indicator, weight)
+		}
+	}
+	return nil
+}
+
+func validateResourceTargets(targets map[v1.ResourceName]int64) error {
+	for resourceName, target := range targets {
+		if target < 0 {
+			return fmt.Errorf("resource target of %v should be a positive value, got %v", resourceName, target)
+		}
+
+		if target > 100 {
+			return fmt.Errorf("resource target of %v should be less than 100, got %v", resourceName, target)
 		}
 	}
 	return nil

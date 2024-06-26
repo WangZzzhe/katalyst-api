@@ -112,6 +112,8 @@ type LoadAwareArgs struct {
 	// ResourceToScalingFactorMap contains resource name and scaling factor, which are used to estimate pod usage
 	// if usage of pod is not exists in node monitor.
 	ResourceToScalingFactorMap map[corev1.ResourceName]int64 `json:"resourceToScalingFactorMap,omitempty"`
+	// ResourceToTargetMap contains resource name and node usage target which are used in loadAware score
+	ResourceToTargetMap map[corev1.ResourceName]int64 `json:"resourceToTargetMap,omitempty"`
 	// CalculateIndicatorWeight indicates the participates in calculate indicator weight
 	// The default avg_15min 30, max_1hour 30, max_1day 40
 	CalculateIndicatorWeight map[IndicatorType]int64 `json:"calculateIndicatorWeight,omitempty"`
