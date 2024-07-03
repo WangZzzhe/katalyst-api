@@ -117,7 +117,7 @@ func (c *FakeAdminQoSConfigurations) UpdateStatus(ctx context.Context, adminQoSC
 // Delete takes name of the adminQoSConfiguration and deletes it. Returns an error if one occurs.
 func (c *FakeAdminQoSConfigurations) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewDeleteActionWithOptions(adminqosconfigurationsResource, c.ns, name, opts), &v1alpha1.AdminQoSConfiguration{})
+		Invokes(testing.NewDeleteAction(adminqosconfigurationsResource, c.ns, name), &v1alpha1.AdminQoSConfiguration{})
 
 	return err
 }

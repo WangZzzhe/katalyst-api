@@ -67,7 +67,7 @@ type NodeResourceTopologyArgs struct {
 // ScoringStrategy define ScoringStrategyType for node resource plugin
 type ScoringStrategy struct {
 	// Type selects which strategy to run.
-	Type kubeschedulerconfig.ScoringStrategyType `json:"type,omitempty"`
+	Type ScoringStrategyType `json:"type,omitempty"`
 
 	// Resources to consider when scoring.
 	// The default resource set includes "cpu" and "memory" with an equal weight.
@@ -81,10 +81,10 @@ type ScoringStrategy struct {
 	ReclaimedResources []kubeschedulerconfig.ResourceSpec `json:"reclaimedResources,omitempty"`
 
 	// Arguments specific to RequestedToCapacityRatio strategy.
-	RequestedToCapacityRatio *kubeschedulerconfig.RequestedToCapacityRatioParam `json:"requestedToCapacityRatio,omitempty"`
+	RequestedToCapacityRatio *kubeschedulerconfig.RequestedToCapacityRatioArgs `json:"requestedToCapacityRatio,omitempty"`
 
 	// Arguments specific to RequestedToCapacityRatio strategy.
-	ReclaimedRequestedToCapacityRatio *kubeschedulerconfig.RequestedToCapacityRatioParam `json:"reclaimedRequestedToCapacityRatio,omitempty"`
+	ReclaimedRequestedToCapacityRatio *kubeschedulerconfig.RequestedToCapacityRatioArgs `json:"reclaimedRequestedToCapacityRatio,omitempty"`
 }
 
 // IndicatorType indicator participate in calculate score
@@ -117,3 +117,19 @@ type LoadAwareArgs struct {
 
 	KubeConfigPath string `json:"kubeConfigPath,omitempty"`
 }
+
+type ScoringStrategyType string
+
+const (
+	// LeastAllocated strategy prioritizes nodes with least allcoated resources.
+	LeastAllocated ScoringStrategyType = "LeastAllocated"
+	// MostAllocated strategy prioritizes nodes with most allcoated resources.
+	MostAllocated ScoringStrategyType = "MostAllocated"
+	// RequestedToCapacityRatio strategy allows specifying a custom shape function
+	// to score nodes based on the request to capacity ratio.
+	RequestedToCapacityRatio ScoringStrategyType = "RequestedToCapacityRatio"
+	// BalancedAllocation strategy favors nodes with balanced resource usage rate
+	BalancedAllocation ScoringStrategyType = "BalancedAllocation"
+	// LeastNUMANodes strategy favors nodes which requires least amount of NUMA nodes to satisfy resource requests for given pod
+	LeastNUMANodes ScoringStrategyType = "LeastNUMANodes"
+)

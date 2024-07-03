@@ -26,7 +26,6 @@ import (
 	overcommitv1alpha1 "github.com/kubewharf/katalyst-api/pkg/apis/overcommit/v1alpha1"
 	recommendationv1alpha1 "github.com/kubewharf/katalyst-api/pkg/apis/recommendation/v1alpha1"
 	resourceportraitv1alpha1 "github.com/kubewharf/katalyst-api/pkg/apis/resourceportrait/v1alpha1"
-	tidev1alpha1 "github.com/kubewharf/katalyst-api/pkg/apis/tide/v1alpha1"
 	workloadv1alpha1 "github.com/kubewharf/katalyst-api/pkg/apis/workload/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
@@ -46,7 +45,6 @@ var localSchemeBuilder = runtime.SchemeBuilder{
 	overcommitv1alpha1.AddToScheme,
 	recommendationv1alpha1.AddToScheme,
 	resourceportraitv1alpha1.AddToScheme,
-	tidev1alpha1.AddToScheme,
 	workloadv1alpha1.AddToScheme,
 }
 
