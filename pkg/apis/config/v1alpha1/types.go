@@ -35,25 +35,25 @@ import (
 // +kubebuilder:printcolumn:name="REASON",type=string,JSONPath=".status.conditions[?(@.type==\"Valid\")].reason"
 // +kubebuilder:printcolumn:name="MESSAGE",type=string,JSONPath=".status.conditions[?(@.type==\"Valid\")].message"
 
-// KatalystCustomConfig is the Schema for the custom configuration API in katalyst
-type KatalystCustomConfig struct {
+// HaloCustomConfig is the Schema for the custom configuration API in katalyst
+type HaloCustomConfig struct {
 	metav1.TypeMeta   `json:",inline"`
 	metav1.ObjectMeta `json:"metadata,omitempty"`
 
-	Spec   KatalystCustomConfigSpec   `json:"spec,omitempty"`
-	Status KatalystCustomConfigStatus `json:"status,omitempty"`
+	Spec   HaloCustomConfigSpec   `json:"spec,omitempty"`
+	Status HaloCustomConfigStatus `json:"status,omitempty"`
 }
 
-// KatalystCustomConfigSpec defines the desired state of KatalystCustomConfig
-type KatalystCustomConfigSpec struct {
+// HaloCustomConfigSpec defines the desired state of HaloCustomConfig
+type HaloCustomConfigSpec struct {
 	// the GVR of target config type
 	TargetType metav1.GroupVersionResource `json:"targetType"`
-	// whether disable revisionHistory for the KatalystCustomConfig resource
+	// whether disable revisionHistory for the HaloCustomConfig resource
 	// +kubebuilder:default:=true
 	// +optional
 	DisableRevisionHistory bool `json:"disableRevisionHistory,omitempty"`
-	// the keys list allowed in node selector to select which nodes will be effected by the KatalystCustomConfig resource,
-	// and the priority will be used when one node match two KatalystCustomConfig resource at the same time, the higher
+	// the keys list allowed in node selector to select which nodes will be effected by the HaloCustomConfig resource,
+	// and the priority will be used when one node match two HaloCustomConfig resource at the same time, the higher
 	// priority one will be considered. If not set, node label selector is not allowed to use.
 	// +patchMergeKey=priority
 	// +patchStrategy=merge
@@ -69,21 +69,21 @@ type PriorityNodeLabelSelectorAllowedKeyList struct {
 	KeyList []string `json:"keyList"`
 }
 
-// KatalystCustomConfigStatus defines the observed state of KatalystCustomConfig
-type KatalystCustomConfigStatus struct {
-	// ObservedGeneration is the generation as observed by the controller consuming the KatalystCustomConfig.
+// HaloCustomConfigStatus defines the observed state of HaloCustomConfig
+type HaloCustomConfigStatus struct {
+	// ObservedGeneration is the generation as observed by the controller consuming the HaloCustomConfig.
 	ObservedGeneration int64 `json:"observedGeneration,omitempty"`
 
 	// InvalidTargetConfigList is a name list of invalid Config
 	InvalidTargetConfigList []string `json:"invalidTargetConfigList,omitempty"`
 
-	// Represents the latest available observations of a KatalystCustomConfig's current state.
-	Conditions []KatalystCustomConfigCondition `json:"conditions,omitempty"`
+	// Represents the latest available observations of a HaloCustomConfig's current state.
+	Conditions []HaloCustomConfigCondition `json:"conditions,omitempty"`
 }
 
-type KatalystCustomConfigCondition struct {
-	// Type of KatalystCustomConfig condition
-	Type KatalystCustomConfigConditionType `json:"type"`
+type HaloCustomConfigCondition struct {
+	// Type of HaloCustomConfig condition
+	Type HaloCustomConfigConditionType `json:"type"`
 	// Status of the condition, one of True, False, Unknown.
 	Status v1.ConditionStatus `json:"status"`
 	// Last time the condition transit from one status to another.
@@ -97,19 +97,19 @@ type KatalystCustomConfigCondition struct {
 	Message string `json:"message,omitempty"`
 }
 
-type KatalystCustomConfigConditionType string
+type HaloCustomConfigConditionType string
 
 const (
-	KatalystCustomConfigConditionTypeValid KatalystCustomConfigConditionType = "Valid"
+	HaloCustomConfigConditionTypeValid HaloCustomConfigConditionType = "Valid"
 )
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
 
-// KatalystCustomConfigList contains a list of KatalystCustomConfig
-type KatalystCustomConfigList struct {
+// HaloCustomConfigList contains a list of HaloCustomConfig
+type HaloCustomConfigList struct {
 	metav1.TypeMeta `json:",inline"`
 	metav1.ListMeta `json:"metadata,omitempty"`
-	Items           []KatalystCustomConfig `json:"items"`
+	Items           []HaloCustomConfig `json:"items"`
 }
 
 // +genclient
@@ -130,10 +130,10 @@ type CustomNodeConfig struct {
 type CustomNodeConfigSpec struct {
 }
 
-// CustomNodeConfigStatus defines the desired state of KatalystCustomConfig
+// CustomNodeConfigStatus defines the desired state of HaloCustomConfig
 type CustomNodeConfigStatus struct {
-	// KatalystCustomConfigList contains a list of target custom config
-	KatalystCustomConfigList []TargetConfig `json:"katalystCustomConfigList,omitempty"`
+	// HaloCustomConfigList contains a list of target custom config
+	HaloCustomConfigList []TargetConfig `json:"haloCustomConfigList,omitempty"`
 
 	// ServiceProfileConfigList contains a list of target service Profile config
 	ServiceProfileConfigList []TargetConfig `json:"serviceProfileConfigList,omitempty"`

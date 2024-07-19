@@ -29,7 +29,7 @@ const (
 
 // const variables for pod annotations about qos level
 const (
-	PodAnnotationQoSLevelKey = "katalyst.kubewharf.io/qos_level"
+	PodAnnotationQoSLevelKey = "halo.io/qos_level"
 
 	PodAnnotationQoSLevelReclaimedCores = string(QoSLevelReclaimedCores)
 	PodAnnotationQoSLevelSharedCores    = string(QoSLevelSharedCores)
@@ -39,7 +39,7 @@ const (
 
 // const variables for pod annotations about qos level enhancement in memory
 const (
-	PodAnnotationMemoryEnhancementKey = "katalyst.kubewharf.io/memory_enhancement"
+	PodAnnotationMemoryEnhancementKey = "halo.io/memory_enhancement"
 
 	// PodAnnotationMemoryEnhancementRssOverUseThreshold provides a mechanism to enable
 	// the ability of overcommit for memory, and we will relay on this enhancement to ensure
@@ -87,7 +87,7 @@ const (
 
 // const variables for pod annotations about qos level enhancement in cpu
 const (
-	PodAnnotationCPUEnhancementKey = "katalyst.kubewharf.io/cpu_enhancement"
+	PodAnnotationCPUEnhancementKey = "halo.io/cpu_enhancement"
 
 	// PodAnnotationCPUEnhancementCPUSet provides a mechanism separate cpuset into
 	// several orthogonal pools to avoid cpu contentions for different types of workloads,
@@ -111,7 +111,7 @@ const (
 
 // const variables for pod annotations about qos level enhancement in network
 const (
-	PodAnnotationNetworkEnhancementKey = "katalyst.kubewharf.io/network_enhancement"
+	PodAnnotationNetworkEnhancementKey = "halo.io/network_enhancement"
 
 	// PodAnnotationNetworkEnhancementNamespaceType provides a mechanism to select nic in different namespaces
 	// - PodAnnotationNetworkEnhancementNamespaceTypeHost

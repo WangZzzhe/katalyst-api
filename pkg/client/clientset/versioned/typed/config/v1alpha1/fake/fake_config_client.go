@@ -36,8 +36,8 @@ func (c *FakeConfigV1alpha1) CustomNodeConfigs() v1alpha1.CustomNodeConfigInterf
 	return &FakeCustomNodeConfigs{c}
 }
 
-func (c *FakeConfigV1alpha1) KatalystCustomConfigs(namespace string) v1alpha1.KatalystCustomConfigInterface {
-	return &FakeKatalystCustomConfigs{c, namespace}
+func (c *FakeConfigV1alpha1) HaloCustomConfigs(namespace string) v1alpha1.HaloCustomConfigInterface {
+	return &FakeHaloCustomConfigs{c, namespace}
 }
 
 // RESTClient returns a RESTClient that is used to communicate

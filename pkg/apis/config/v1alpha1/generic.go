@@ -31,7 +31,7 @@ type GenericConfigSpec struct {
 
 	// NodeLabelSelector select nodes to apply these configurations,
 	// the priority and node label selector must be matched according
-	// to KatalystCustomConfig.spec.nodeLabelSelectorAllowedKeyList,
+	// to HaloCustomConfig.spec.nodeLabelSelectorAllowedKeyList,
 	// otherwise it will not be synced.
 	// +optional
 	NodeLabelSelector string `json:"nodeLabelSelector,omitempty"`

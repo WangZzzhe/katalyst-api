@@ -22,4 +22,4 @@ type AdminQoSConfigurationExpansion interface{}
 
 type CustomNodeConfigExpansion interface{}
 
-type KatalystCustomConfigExpansion interface{}
+type HaloCustomConfigExpansion interface{}

@@ -5,16 +5,16 @@ metadata:
   annotations:
     controller-gen.kubebuilder.io/version: v0.9.0
   creationTimestamp: null
-  name: katalystcustomconfigs.config.halo.io
+  name: halocustomconfigs.config.halo.io
 spec:
   group: config.halo.io
   names:
-    kind: KatalystCustomConfig
-    listKind: KatalystCustomConfigList
-    plural: katalystcustomconfigs
+    kind: HaloCustomConfig
+    listKind: HaloCustomConfigList
+    plural: halocustomconfigs
     shortNames:
     - kcc
-    singular: katalystcustomconfig
+    singular: halocustomconfig
   scope: Namespaced
   versions:
   - additionalPrinterColumns:
@@ -48,8 +48,8 @@ spec:
     name: v1alpha1
     schema:
       openAPIV3Schema:
-        description: KatalystCustomConfig is the Schema for the custom configuration
-          API in katalyst
+        description: HaloCustomConfig is the Schema for the custom configuration API
+          in katalyst
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -64,19 +64,19 @@ spec:
           metadata:
             type: object
           spec:
-            description: KatalystCustomConfigSpec defines the desired state of KatalystCustomConfig
+            description: HaloCustomConfigSpec defines the desired state of HaloCustomConfig
             properties:
               disableRevisionHistory:
                 default: true
-                description: whether disable revisionHistory for the KatalystCustomConfig
+                description: whether disable revisionHistory for the HaloCustomConfig
                   resource
                 type: boolean
               nodeLabelSelectorAllowedKeyList:
                 description: the keys list allowed in node selector to select which
-                  nodes will be effected by the KatalystCustomConfig resource, and
-                  the priority will be used when one node match two KatalystCustomConfig
-                  resource at the same time, the higher priority one will be considered.
-                  If not set, node label selector is not allowed to use.
+                  nodes will be effected by the HaloCustomConfig resource, and the
+                  priority will be used when one node match two HaloCustomConfig resource
+                  at the same time, the higher priority one will be considered. If
+                  not set, node label selector is not allowed to use.
                 items:
                   description: PriorityNodeLabelSelectorAllowedKeyList defines the
                     priority and its allowed key list
@@ -114,11 +114,10 @@ spec:
             - targetType
             type: object
           status:
-            description: KatalystCustomConfigStatus defines the observed state of
-              KatalystCustomConfig
+            description: HaloCustomConfigStatus defines the observed state of HaloCustomConfig
             properties:
               conditions:
-                description: Represents the latest available observations of a KatalystCustomConfig's
+                description: Represents the latest available observations of a HaloCustomConfig's
                   current state.
                 items:
                   properties:
@@ -138,7 +137,7 @@ spec:
                       description: Status of the condition, one of True, False, Unknown.
                       type: string
                     type:
-                      description: Type of KatalystCustomConfig condition
+                      description: Type of HaloCustomConfig condition
                       type: string
                   required:
                   - status
@@ -152,7 +151,7 @@ spec:
                 type: array
               observedGeneration:
                 description: ObservedGeneration is the generation as observed by the
-                  controller consuming the KatalystCustomConfig.
+                  controller consuming the HaloCustomConfig.
                 format: int64
                 type: integer
             type: object

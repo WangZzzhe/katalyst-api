@@ -118,7 +118,7 @@ spec:
               nodeLabelSelector:
                 description: NodeLabelSelector select nodes to apply these configurations,
                   the priority and node label selector must be matched according to
-                  KatalystCustomConfig.spec.nodeLabelSelectorAllowedKeyList, otherwise
+                  HaloCustomConfig.spec.nodeLabelSelectorAllowedKeyList, otherwise
                   it will not be synced.
                 type: string
               priority:

@@ -41,7 +41,7 @@ var SchemeGroupVersion = schema.GroupVersion{Group: GroupName, Version: "v1alpha
 
 // ResourceName const is used to construct standard gvr
 const (
-	ResourceNameKatalystCustomConfigs  = "katalystcustomconfigs"
+	ResourceNameHaloCustomConfigs      = "HaloCustomconfigs"
 	ResourceNameCustomNodeConfigs      = "customnodeconfigs"
 	ResourceNameAdminQoSConfigurations = "adminqosconfigurations"
 	ResourceNameAuthConfigurations     = "authconfigurations"
@@ -69,8 +69,8 @@ func addSPDKnownTypes(scheme *runtime.Scheme) error {
 // Adds the list of known types to the given scheme.
 func addKnownTypes(scheme *runtime.Scheme) error {
 	scheme.AddKnownTypes(SchemeGroupVersion,
-		&KatalystCustomConfig{},
-		&KatalystCustomConfigList{},
+		&HaloCustomConfig{},
+		&HaloCustomConfigList{},
 		&CustomNodeConfig{},
 		&CustomNodeConfigList{},
 
