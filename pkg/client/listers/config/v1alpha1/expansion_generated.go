@@ -30,10 +30,10 @@ type AdminQoSConfigurationNamespaceListerExpansion interface{}
 // CustomNodeConfigLister.
 type CustomNodeConfigListerExpansion interface{}
 
-// KatalystCustomConfigListerExpansion allows custom methods to be added to
-// KatalystCustomConfigLister.
-type KatalystCustomConfigListerExpansion interface{}
+// HaloCustomConfigListerExpansion allows custom methods to be added to
+// HaloCustomConfigLister.
+type HaloCustomConfigListerExpansion interface{}
 
-// KatalystCustomConfigNamespaceListerExpansion allows custom methods to be added to
-// KatalystCustomConfigNamespaceLister.
-type KatalystCustomConfigNamespaceListerExpansion interface{}
+// HaloCustomConfigNamespaceListerExpansion allows custom methods to be added to
+// HaloCustomConfigNamespaceLister.
+type HaloCustomConfigNamespaceListerExpansion interface{}

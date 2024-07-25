@@ -18,14 +18,14 @@ import v1 "k8s.io/api/core/v1"
 
 // const variables for resource names of reclaimed resource
 const (
-	ReclaimedResourceMilliCPU v1.ResourceName = "resource.katalyst.kubewharf.io/reclaimed_millicpu"
-	ReclaimedResourceMemory   v1.ResourceName = "resource.katalyst.kubewharf.io/reclaimed_memory"
+	ReclaimedResourceMilliCPU v1.ResourceName = "resource.halo.io/reclaimed_millicpu"
+	ReclaimedResourceMemory   v1.ResourceName = "resource.halo.io/reclaimed_memory"
 )
 
 // const variables for resource names of guaranteed resource
 const (
-	ResourceNetBandwidth    v1.ResourceName = "resource.katalyst.kubewharf.io/net_bandwidth"
-	ResourceMemoryBandwidth v1.ResourceName = "resource.katalyst.kubewharf.io/memory_bandwidth"
+	ResourceNetBandwidth    v1.ResourceName = "resource.halo.io/net_bandwidth"
+	ResourceMemoryBandwidth v1.ResourceName = "resource.halo.io/memory_bandwidth"
 )
 
 // const variables for resource attributes of resources
@@ -34,8 +34,8 @@ const (
 	// field in pod-resource-server (for qrm-related protocols); if the name field can't be
 	// guaranteed to be unique in some cases, we can relay on this annotation to get unique keys
 	// (to replace with the default name)
-	ResourceAnnotationKeyResourceIdentifier = "katalyst.kubewharf.io/resource_identifier"
+	ResourceAnnotationKeyResourceIdentifier = "halo.io/resource_identifier"
 
 	// ResourceAnnotationKeyResourceIdentifier nominated the key indicating net namespace name of the NIC
-	ResourceAnnotationKeyNICNetNSName = "katalyst.kubewharf.io/netns_name"
+	ResourceAnnotationKeyNICNetNSName = "halo.io/netns_name"
 )

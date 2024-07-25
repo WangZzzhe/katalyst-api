@@ -74,8 +74,8 @@ func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Config().V1alpha1().AdminQoSConfigurations().Informer()}, nil
 	case configv1alpha1.SchemeGroupVersion.WithResource("customnodeconfigs"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Config().V1alpha1().CustomNodeConfigs().Informer()}, nil
-	case configv1alpha1.SchemeGroupVersion.WithResource("katalystcustomconfigs"):
-		return &genericInformer{resource: resource.GroupResource(), informer: f.Config().V1alpha1().KatalystCustomConfigs().Informer()}, nil
+	case configv1alpha1.SchemeGroupVersion.WithResource("halocustomconfigs"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Config().V1alpha1().HaloCustomConfigs().Informer()}, nil
 
 		// Group=node.halo.io, Version=v1alpha1
 	case nodev1alpha1.SchemeGroupVersion.WithResource("customnoderesources"):

@@ -32,59 +32,59 @@ import (
 	cache "k8s.io/client-go/tools/cache"
 )
 
-// KatalystCustomConfigInformer provides access to a shared informer and lister for
-// KatalystCustomConfigs.
-type KatalystCustomConfigInformer interface {
+// HaloCustomConfigInformer provides access to a shared informer and lister for
+// HaloCustomConfigs.
+type HaloCustomConfigInformer interface {
 	Informer() cache.SharedIndexInformer
-	Lister() v1alpha1.KatalystCustomConfigLister
+	Lister() v1alpha1.HaloCustomConfigLister
 }
 
-type katalystCustomConfigInformer struct {
+type haloCustomConfigInformer struct {
 	factory          internalinterfaces.SharedInformerFactory
 	tweakListOptions internalinterfaces.TweakListOptionsFunc
 	namespace        string
 }
 
-// NewKatalystCustomConfigInformer constructs a new informer for KatalystCustomConfig type.
+// NewHaloCustomConfigInformer constructs a new informer for HaloCustomConfig type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewKatalystCustomConfigInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
-	return NewFilteredKatalystCustomConfigInformer(client, namespace, resyncPeriod, indexers, nil)
+func NewHaloCustomConfigInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers) cache.SharedIndexInformer {
+	return NewFilteredHaloCustomConfigInformer(client, namespace, resyncPeriod, indexers, nil)
 }
 
-// NewFilteredKatalystCustomConfigInformer constructs a new informer for KatalystCustomConfig type.
+// NewFilteredHaloCustomConfigInformer constructs a new informer for HaloCustomConfig type.
 // Always prefer using an informer factory to get a shared informer instead of getting an independent
 // one. This reduces memory footprint and number of connections to the server.
-func NewFilteredKatalystCustomConfigInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
+func NewFilteredHaloCustomConfigInformer(client versioned.Interface, namespace string, resyncPeriod time.Duration, indexers cache.Indexers, tweakListOptions internalinterfaces.TweakListOptionsFunc) cache.SharedIndexInformer {
 	return cache.NewSharedIndexInformer(
 		&cache.ListWatch{
 			ListFunc: func(options v1.ListOptions) (runtime.Object, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.ConfigV1alpha1().KatalystCustomConfigs(namespace).List(context.TODO(), options)
+				return client.ConfigV1alpha1().HaloCustomConfigs(namespace).List(context.TODO(), options)
 			},
 			WatchFunc: func(options v1.ListOptions) (watch.Interface, error) {
 				if tweakListOptions != nil {
 					tweakListOptions(&options)
 				}
-				return client.ConfigV1alpha1().KatalystCustomConfigs(namespace).Watch(context.TODO(), options)
+				return client.ConfigV1alpha1().HaloCustomConfigs(namespace).Watch(context.TODO(), options)
 			},
 		},
-		&configv1alpha1.KatalystCustomConfig{},
+		&configv1alpha1.HaloCustomConfig{},
 		resyncPeriod,
 		indexers,
 	)
 }
 
-func (f *katalystCustomConfigInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
-	return NewFilteredKatalystCustomConfigInformer(client, f.namespace, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
+func (f *haloCustomConfigInformer) defaultInformer(client versioned.Interface, resyncPeriod time.Duration) cache.SharedIndexInformer {
+	return NewFilteredHaloCustomConfigInformer(client, f.namespace, resyncPeriod, cache.Indexers{cache.NamespaceIndex: cache.MetaNamespaceIndexFunc}, f.tweakListOptions)
 }
 
-func (f *katalystCustomConfigInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&configv1alpha1.KatalystCustomConfig{}, f.defaultInformer)
+func (f *haloCustomConfigInformer) Informer() cache.SharedIndexInformer {
+	return f.factory.InformerFor(&configv1alpha1.HaloCustomConfig{}, f.defaultInformer)
 }
 
-func (f *katalystCustomConfigInformer) Lister() v1alpha1.KatalystCustomConfigLister {
-	return v1alpha1.NewKatalystCustomConfigLister(f.Informer().GetIndexer())
+func (f *haloCustomConfigInformer) Lister() v1alpha1.HaloCustomConfigLister {
+	return v1alpha1.NewHaloCustomConfigLister(f.Informer().GetIndexer())
 }

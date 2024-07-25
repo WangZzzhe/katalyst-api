@@ -28,7 +28,7 @@ type ConfigV1alpha1Interface interface {
 	RESTClient() rest.Interface
 	AdminQoSConfigurationsGetter
 	CustomNodeConfigsGetter
-	KatalystCustomConfigsGetter
+	HaloCustomConfigsGetter
 }
 
 // ConfigV1alpha1Client is used to interact with features provided by the config.halo.io group.
@@ -44,8 +44,8 @@ func (c *ConfigV1alpha1Client) CustomNodeConfigs() CustomNodeConfigInterface {
 	return newCustomNodeConfigs(c)
 }
 
-func (c *ConfigV1alpha1Client) KatalystCustomConfigs(namespace string) KatalystCustomConfigInterface {
-	return newKatalystCustomConfigs(c, namespace)
+func (c *ConfigV1alpha1Client) HaloCustomConfigs(namespace string) HaloCustomConfigInterface {
+	return newHaloCustomConfigs(c, namespace)
 }
 
 // NewForConfig creates a new ConfigV1alpha1Client for the given config.

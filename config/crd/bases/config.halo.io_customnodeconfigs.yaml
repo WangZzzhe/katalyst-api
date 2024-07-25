@@ -37,10 +37,10 @@ spec:
           spec:
             type: object
           status:
-            description: CustomNodeConfigStatus defines the desired state of KatalystCustomConfig
+            description: CustomNodeConfigStatus defines the desired state of HaloCustomConfig
             properties:
-              katalystCustomConfigList:
-                description: KatalystCustomConfigList contains a list of target custom
+              haloCustomConfigList:
+                description: HaloCustomConfigList contains a list of target custom
                   config
                 items:
                   description: TargetConfig current hash for specific gvk config object

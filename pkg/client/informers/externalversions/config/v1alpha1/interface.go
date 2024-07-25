@@ -28,8 +28,8 @@ type Interface interface {
 	AdminQoSConfigurations() AdminQoSConfigurationInformer
 	// CustomNodeConfigs returns a CustomNodeConfigInformer.
 	CustomNodeConfigs() CustomNodeConfigInformer
-	// KatalystCustomConfigs returns a KatalystCustomConfigInformer.
-	KatalystCustomConfigs() KatalystCustomConfigInformer
+	// HaloCustomConfigs returns a HaloCustomConfigInformer.
+	HaloCustomConfigs() HaloCustomConfigInformer
 }
 
 type version struct {
@@ -53,7 +53,7 @@ func (v *version) CustomNodeConfigs() CustomNodeConfigInformer {
 	return &customNodeConfigInformer{factory: v.factory, tweakListOptions: v.tweakListOptions}
 }
 
-// KatalystCustomConfigs returns a KatalystCustomConfigInformer.
-func (v *version) KatalystCustomConfigs() KatalystCustomConfigInformer {
-	return &katalystCustomConfigInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+// HaloCustomConfigs returns a HaloCustomConfigInformer.
+func (v *version) HaloCustomConfigs() HaloCustomConfigInformer {
+	return &haloCustomConfigInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }
